@@ -18,7 +18,7 @@ class ImageProduct extends Model
     */
     protected $fillable = [
         'isPrimary',
-        'image'
+        'path'
     ];
 
     public function product()
