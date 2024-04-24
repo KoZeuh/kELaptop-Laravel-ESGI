@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 23 avr. 2024 à 14:59
+-- Généré le : mar. 23 avr. 2024 à 14:38
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.2.0
 
@@ -288,7 +288,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `price` decimal(8,2) NOT NULL,
-  `details` longtext COLLATE utf8mb4_unicode_ci,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -300,10 +299,10 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Déchargement des données de la table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, `price`, `details`, `created_at`, `updated_at`) VALUES
-(7, 7, 2, 'iPhone 15 Pro MAX', '', '150.00', '{\n    \"display\": \"13.3-inch LED-backlit display with IPS\",\n    \"processor\": \"2.3GHz dual-core Intel Core i5\",\n    \"camera\": \"720p FaceTime HD camera\",\n    \"memory\": [\"8 GB RAM\", \"16 GB RAM\"],\n    \"graphics\": \"Intel Iris Plus Graphics 640\"\n}', NULL, NULL),
-(8, 7, 2, 'iPhone 14 Pro MAX', '', '150.00', NULL, NULL, NULL),
-(9, 7, 2, 'iPhone 12 Pro MAX', '', '150.00', NULL, NULL, NULL);
+INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, `price`, `created_at`, `updated_at`) VALUES
+(7, 7, 2, 'iPhone 15 Pro MAX', '', '150.00', NULL, NULL),
+(8, 7, 2, 'iPhone 14 Pro MAX', '', '150.00', NULL, NULL),
+(9, 7, 2, 'iPhone 12 Pro MAX', '', '150.00', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -329,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('cuBgrlxFmAYCUgGexUvKIOUQFwf3xTtea1jD5FkQ', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiMTNJVmpidDVHNTlZZmRXZ0JTUFk3YWtPbDJaNWt0ZUkzVkxqWVdBZCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjIxOiJodHRwOi8vbG9jYWxob3N0OjgwMDAiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcxMzg3MjUzMTt9fQ==', 1713883816);
+('cuBgrlxFmAYCUgGexUvKIOUQFwf3xTtea1jD5FkQ', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiMTNJVmpidDVHNTlZZmRXZ0JTUFk3YWtPbDJaNWt0ZUkzVkxqWVdBZCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM2OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvcHJvZHVjdC9zaG93LzkiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO3M6NDoiYXV0aCI7YToxOntzOjIxOiJwYXNzd29yZF9jb25maXJtZWRfYXQiO2k6MTcxMzg3MjUzMTt9fQ==', 1713883033);
 
 -- --------------------------------------------------------
 
@@ -376,6 +375,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `users_email_unique` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+
+DROP TABLE IF EXISTS `carts`;
+CREATE TABLE IF NOT EXISTS `carts` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `quantity` int NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `carts_user_id_foreign` (`user_id`),
+  KEY `carts_product_id_foreign` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 --
 -- Déchargement des données de la table `users`
 --
@@ -430,13 +442,69 @@ ALTER TABLE `sessions`
 --
 ALTER TABLE `stocks`
   ADD CONSTRAINT `stocks_product_id_foreign` FOREIGN KEY (`id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-COMMIT;
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+--
+-- Contraintes pour la table `carts`
+--
+
+ALTER TABLE `carts`
+  ADD CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- Création d'un trigger qui va baisser le stock d'un produit quand une nouvelle valeur est ajoutée dans la table order_items
+
+DELIMITER $$
+
+CREATE TRIGGER after_order_item_insert
+AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE stocks
+    SET quantity = quantity - NEW.quantity
+    WHERE id = NEW.product_id;
+END$$
+
+DELIMITER ;
+
 -- Création d'un trigger qui va augmenter le stock d'un produit quand une valeur est supprimée dans la table order_items
+
+DELIMITER $$
+
+CREATE TRIGGER after_order_item_delete
+AFTER DELETE ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE stocks
+    SET quantity = quantity + OLD.quantity
+    WHERE id = OLD.product_id;
+END$$
+
+DELIMITER ;
+
 -- Création d'un trigger qui va initialiser le stock d'un produit lors de la création d'un produit
+
+DELIMITER $$
+
+CREATE TRIGGER after_product_insert
+AFTER INSERT ON products
+FOR EACH ROW
+BEGIN
+    INSERT INTO stocks (id, quantity)
+    VALUES (NEW.id, 0);  -- Mettre ici la quantité initiale souhaitée
+END$$
+
+DELIMITER ;
+
 -- Création d'un trigger qui ajoute une image par défaut lors de la création d'un produit
+
+DELIMITER $$
+
+CREATE TRIGGER after_product_insert_default_image
+AFTER INSERT ON products
+FOR EACH ROW
+BEGIN
+    INSERT INTO image_products (product_id, path, isPrimary)
+    VALUES (NEW.id, 'default.png', 1);
+END$$
+
+DELIMITER ;
