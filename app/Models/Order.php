@@ -16,7 +16,7 @@ class Order extends Model
      *
      * @var array<int, string>
     */
-    protected $fillable = ['status', 'total'];
+    protected $fillable = ['status'];
 
     public function user()
     {
