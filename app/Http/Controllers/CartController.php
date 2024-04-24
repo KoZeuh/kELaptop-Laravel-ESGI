@@ -23,12 +23,6 @@ class CartController extends Controller
     
         return redirect()->back()->with('success', 'Produit ajouté au panier');
     }
-    
-    public function showCart()
-    {
-        $categories = Category::all();
-        return view('cart.show', compact('categories'));
-    }
 
     public function removeFromCart($productId)
     {
@@ -36,7 +30,7 @@ class CartController extends Controller
             ->where('product_id', $productId)
             ->delete();
     
-        return redirect()->back()->with('success', 'Produit retiré du panier');
+        return redirect()->back();
     }
 
 

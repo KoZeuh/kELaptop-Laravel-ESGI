@@ -9,15 +9,14 @@
 
         <title>{{ config('app.name', 'kFruitables') }}</title>
 
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet"> 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
-        <!-- Font Awesome -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         @php
             $currentPath = request()->path();
@@ -27,203 +26,199 @@
     <body>
         <div id="app">
             <!--Main Navigation-->
-            <header>
-                <!-- Jumbotron -->
-                <div class="p-3 text-center bg-white border-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <!-- Left elements -->
-                            <div class="col-md-4 d-flex justify-content-center justify-content-md-start mb-3 mb-md-0">
-                                <a href="{{url('/')}}" class="ms-md-2">
-                                    <img src="https://files.oaiusercontent.com/file-H5KB9U87SrEieZ6CrDe1kj1k?se=2024-04-23T14%3A54%3A42Z&sp=r&sv=2021-08-06&sr=b&rscc=max-age%3D31536000%2C%20immutable&rscd=attachment%3B%20filename%3D28b06d0f-a518-4c73-8a52-8de8f7e5168b.webp&sig=GWWssetqeGBzlMYP0Z8EOFLFNPwLw5p7lcikfXLqq34%3D" height="35" />
-                                </a>
+            <header class="py-4 shadow-sm bg-white">
+                <div class="container flex items-center justify-between">
+                    <a href="{{url('/')}}">
+                        <img src="/images/logo.svg" alt="Logo" class="w-32">
+                    </a>
+
+                    <div class="w-full max-w-xl relative flex">
+                        <span class="absolute left-4 top-3 text-lg text-gray-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" name="search" id="search"
+                            class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex"
+                            placeholder="search">
+                        <button
+                            class="bg-primary border border-primary text-white px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Rechercher</button>
+                    </div>
+
+                    <div class="flex items-center space-x-4">
+                        <a href="{{url('/checkout')}}" class="text-center text-gray-700 hover:text-primary transition relative">
+                            <div class="text-2xl">
+                                <i class="fa-solid fa-bag-shopping"></i>
                             </div>
-                            <!-- Left elements -->
-
-                            <!-- Center elements -->
-                            <div class="col-md-4">
-                                <form class="d-flex input-group w-auto my-auto mb-3 mb-md-0">
-                                    <input autocomplete="off" type="search" class="form-control rounded" placeholder="Search" />
-                                    <span class="input-group-text border-0 d-none d-lg-flex"><i class="fas fa-search"></i></span>
-                                </form>
-                            </div>
-                            <!-- Center elements -->
-
-                            <!-- Right elements -->
-                            <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
-                                <div class="d-flex">
-                                    <!-- Cart -->
-                                    <a class="text-reset me-3" href="{{ url('/cart') }}">
-                                        <span><i class="fas fa-shopping-cart"></i></span>
-                                        <span class="badge rounded-pill badge-notification bg-danger">@auth {{$currentUser->cartItems->count()}} @else 0 @endauth</span>
-                                    </a>
-
-
-                                    <!-- User -->
-                                    <div class="dropdown">
-                                        <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
-                                            id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <img src="img/avatar.png" class="rounded-circle" height="22"/>
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                                            <li><a class="dropdown-item" href="#">My profile</a></li>
-                                            <li><a class="dropdown-item" href="#">Settings</a></li>
-                                            <li><a class="dropdown-item" href="#">Logout</a></li>
-                                        </ul>
-                                    </div>
+                            <div class="text-xs leading-3">Panier</div>
+                            <div class="absolute -right-3 -top-1 w-5 h-5 rounded-full flex items-center justify-center bg-primary text-white text-xs">@auth {{$currentUser->cartItems->count()}} @else 0 @endauth</div>
+                        </a>
+                        @auth
+                            <a href="{{url('/profile')}}" class="text-center text-gray-700 hover:text-primary transition relative">
+                                <div class="text-2xl">
+                                    <i class="fa-regular fa-user"></i>
                                 </div>
-                            </div>
-                            <!-- Right elements -->
-                        </div>
+                                <div class="text-xs leading-3">Mon compte</div>
+                            </a>
+                        @endauth
                     </div>
                 </div>
-                <!-- Jumbotron -->
-
-                <!-- Navbar -->
-                <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                    <!-- Container wrapper -->
-                    <div class="container justify-content-center justify-content-md-between">
-                        <!-- Left links -->
-                        <ul class="navbar-nav flex-row">
-                            <li class="nav-item me-2 me-lg-0">
-                                <a class="nav-link" href="#" role="button" data-mdb-toggle="sidenav" data-mdb-target="#sidenav-1"
-                                    class="btn shadow-0 p-0 me-3" aria-controls="#sidenav-1" aria-haspopup="true">
-                                    <i class="fas fa-bars me-1"></i>
-                                    <span>Catégories</span>
-                                </a>
-                            </li>
-                            @auth
-                                @foreach ($categories as $category)
-                                    @if ($category->parent_id == null)
-                                        <li class="nav-item me-2 me-lg-0">
-                                            <a class="nav-link" href="#">{{ $category->name }}</a>
-                                        </li>
-                                    @endif
-                                @endforeach
-                            @endauth
-                        </ul>
-                        <!-- Left links -->
-
-                        <button class="btn btn-outline-primary" data-mdb-ripple-color="dark" type="button">
-                            Download app<i class="fas fa-download ms-2"></i>
-                        </button>
-                    </div>
-                    <!-- Container wrapper -->
-                </nav>
-                <!-- Navbar -->
-
             </header>
+            <!-- ./header -->
+
+            <!-- navbar -->
+            <nav class="bg-gray-800">
+                <div class="container flex">
+                    <div class="flex items-center justify-between flex-grow md:pl-12 py-5">
+                        <div class="flex items-center space-x-6">
+                            <a href="{{url('/')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
+                            <a href="{{url('product/list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
+                            <a href="#" class="text-gray-200 hover:text-white transition">A propos de nous</a>
+                            <a href="#" class="text-gray-200 hover:text-white transition">Nous contacter</a>
+                        </div>
+                        @guest
+                            <a href="{{route('login')}}" class="text-gray-200 hover:text-white transition">Se connecter/S'inscrire</a>
+                        @endguest
+                    </div>
+                </div>
+            </nav>
+            <!-- ./navbar -->
 
             @if ($errors->any())
-                <div class="col-sm-12 text-center">
-                    <div class="alert  alert-warning alert-dismissible fade show" role="alert">
-                        @foreach ($errors->all() as $error)
-                            <span><p>{{ $error }}</p></span>
-                        @endforeach
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+
+                    <span class="sr-only">Danger</span>
+                    <div>
+                        <span class="font-medium">Une erreur est survenue..</span>
+                        <ul class="mt-1.5 list-disc list-inside">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             @endif
 
             @if (session('success'))
-                <div class="col-sm-12 text-center">
-                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                        {{ session('success') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <div class="flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-green-800 dark:text-green-400" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+
+                    <span class="sr-only">Success</span>
+                    <div>
+                        <span class="font-medium">Succès!</span>
+                        <p class="mt-1.5">{{session('success')}}</p>
                     </div>
                 </div>
             @endif
 
             @if (session('error'))
-                <div class="col-sm-12 text-center">
-                    <div class="alert  alert-danger alert-dismissible fade show" role="alert">
-                        {{ session('error') }}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                <div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-800 dark:text-red-400" role="alert">
+                    <svg class="flex-shrink-0 inline w-4 h-4 me-3 mt-[2px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                    </svg>
+
+                    <span class="sr-only">Danger</span>
+                    <div>
+                        <span class="font-medium">Une erreur est survenue..</span>
+                        <p class="mt-1.5">{{session('error')}}</p>
                     </div>
                 </div>
             @endif
+
 
             <main class="py-4">
                 @yield('content')
             </main>
 
-            <footer class="text-center text-white mt-4" style="background-color: #607D8B">
-                <hr class="text-dark">
-            
-                <div class="container">
-                    <!-- Section: Social media -->
-                    <section class="mb-3">
-                
-                        <!-- Facebook -->
-                        <a
-                            class="btn-link btn-floating btn-lg text-white"
-                            href="#!"
-                            role="button"
-                            data-mdb-ripple-color="dark"
-                            ><i class="fab fa-facebook-f"></i
-                        ></a>
-        
-                        <!-- Twitter -->
-                        <a
-                        class="btn-link btn-floating btn-lg text-white"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                        ><i class="fab fa-twitter"></i
-                        ></a>
-        
-                        <!-- Google -->
-                        <a
-                        class="btn-link btn-floating btn-lg text-white"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                        ><i class="fab fa-google"></i
-                        ></a>
-                
-                        <!-- Instagram -->
-                        <a
-                        class="btn-link btn-floating btn-lg text-white"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                        ><i class="fab fa-instagram"></i
-                        ></a>
-                
-                        <!-- YouTube -->
-                        <a
-                        class="btn-link btn-floating btn-lg text-white"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                        ><i class="fab fa-youtube"></i
-                        ></a>
-                        <!-- Github -->
-                        <a
-                        class="btn-link btn-floating btn-lg text-white"
-                        href="#!"
-                        role="button"
-                        data-mdb-ripple-color="dark"
-                        ><i class="fab fa-github"></i
-                        ></a>
-                    </section>
-                    <!-- Section: Social media -->
+            <!-- footer -->
+            <footer class="bg-white pt-16 pb-12 border-t border-gray-100">
+                <div class="container grid grid-cols-1 ">
+                    <div class="col-span-1 space-y-4">
+                        <img src="/images/logo.svg" alt="logo" class="w-30">
+                        <div class="mr-2">
+                            <p class="text-gray-500">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia, hic?
+                            </p>
+                        </div>
+                        <div class="flex space-x-5">
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                    class="fa-brands fa-facebook-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                    class="fa-brands fa-instagram-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500"><i
+                                    class="fa-brands fa-twitter-square"></i></a>
+                            <a href="#" class="text-gray-400 hover:text-gray-500">
+                                <i class="fa-brands fa-github-square"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-span-2 grid grid-cols-2 gap-4">
+                        <div class="grid grid-cols-2 gap-4 md:gap-8">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
+                                    <!-- <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a> -->
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-8">
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Solutions</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Marketing</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Analitycs</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Commerce</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Insights</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Support</h3>
+                                <div class="mt-4 space-y-4">
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Pricing</a>
+                                    <!-- <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Documentation</a> -->
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">Guides</a>
+                                    <a href="#" class="text-base text-gray-500 hover:text-gray-900 block">API Status</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <!-- Grid container -->
-        
-                <!-- Copyright -->
-                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2); text-color: #E0E0E0">
-                    © 2022 Copyright:
-                    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
-                </div>
-                <!-- Copyright -->
             </footer>
+            <!-- ./footer -->
+
+            <!-- copyright -->
+            <div class="bg-gray-800 py-4">
+                <div class="container flex items-center justify-between">
+                    <p class="text-white">&copy; TailCommerce - All Right Reserved</p>
+                    <div>
+                        <img src="/images/methods.png" alt="methods" class="h-5">
+                    </div>
+                </div>
+            </div>
+            <!-- ./copyright -->
+
+
+            
         </div>
-    </body>
+    </div>
+
+</body>
 </html>

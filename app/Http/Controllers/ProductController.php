@@ -6,21 +6,19 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\OrderItem;
 use App\Models\Stock;
+use App\Models\Brand;
 
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function list()
     {
-        $this->middleware('auth');
+        $categories = Category::all();
+        $products = Product::all();
+        $brands = Brand::all();
+        return view('product.list', compact('products', 'categories', 'brands'));
     }
-
 
     public function show($id)
     {

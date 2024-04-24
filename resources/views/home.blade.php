@@ -1,100 +1,113 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-      <aside class="col-md-3">
-		
-        <div class="card">
-	        <article class="filter-group">
-		        <div class="filter-content collapse show" id="collapse_1" style="">
-			        <div class="card-body">
-                <h6 class="title">Categories</h6>
-                <ul class="list-menu">
-                  @foreach($categories as $category)
-                    @if($category->parent_id == null)
-                      <h6 class="mt-2">{{ $category->name }}</h6>
-
-                      <ul class="list-menu">
-                        @foreach($categories as $subCategory)
-                          @if($subCategory->parent_id == $category->id)
-                            <li><a href="#">{{ $subCategory->name }}</a></li>
-                          @endif
-                        @endforeach
-                      </ul>
-                    @endif
-                  @endforeach
-                </ul>
-			        </div>
-		        </div>
-	        </article>
-
-          <article class="filter-group">
-		        <div class="filter-content collapse show" id="collapse_2" style="">
-			        <div class="card-body">
-                <h6 class="title">Marques</h6>
-                <ul class="list-menu">
-                  @foreach($brands as $brand)
-                    <li><a href="#">{{ $brand->name }}</a></li>
-                  @endforeach
-                </ul>
-			        </div>
-		        </div>
-	        </article>
-
-          <article class="filter-group">
-            <header class="card-header"></header>
-            <div class="filter-content collapse show" id="collapse_3" style="">
-              <div class="card-body">
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label>Min</label>
-                    <input class="form-control" placeholder="$0" type="number">
-                  </div>
-                  <div class="form-group text-right col-md-6">
-                    <label>Max</label>
-                    <input class="form-control" placeholder="$1,0000" type="number">
-                  </div>
-                </div> <!-- form-row.// -->
-                <button class="btn btn-block btn-primary mt-3">Appliquer</button>
-              </div><!-- card-body.// -->
+    <!-- banner -->
+    <div class="bg-cover bg-no-repeat bg-center py-36" style="background-image: url('images/banner-bg.jpg');">
+        <div class="container">
+            <h1 class="text-6xl text-gray-800 font-medium mb-4 capitalize">
+                Meilleur collection <br> d'objet numérique
+            </h1>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam <br>
+                accusantium perspiciatis, sapiente
+                magni eos dolorum ex quos dolores odio</p>
+            <div class="mt-12">
+                <a href="#" class="bg-primary border border-primary text-white px-8 py-3 font-medium 
+                    rounded-md hover:bg-transparent hover:text-primary">Découvrir maintenant</a>
             </div>
-          </article> <!-- filter-group .// -->
         </div>
-	    </aside>
+    </div>
+    <!-- ./banner -->
 
-	    <main class="col-md-9">
-        <div class="row">
-          @foreach ($products as $product)
-            <div class="col-md-6 col-lg-4 mb-4 mb-md-0">
-              <div class="card">
-                <a href="{{ url('product/show', $product->id) }}">
-                  <img src="/img/{{$product->images->first()->path}}" class="card-img-top">
-                  <div class="card-body">
-                    <div class="d-flex justify-content-between">
-                      <p class="small"><a href="{{ url('product/show', $product->id) }}" class="text-muted">{{ $product->category->name }}</a></p>
-                      <P class="small text-muted">{{ $product->price }} $</P>
-                    </div>
-
-                    <div class="text-center mb-3">
-                      <h5 class="mb-0">{{ $product->name }}</h5>
-                    </div>
-
-                    <div class="d-flex justify-content-center mb-2 text-warning">
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="fas fa-star"></i>
-                      <i class="far fa-star"></i>
-                    </div>
-                  </div>
-                </a>
-              </div>
+    <!-- features -->
+    <div class="container py-16">
+        <div class="w-10/12 grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto justify-center">
+            <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+                <img src="images/icons/delivery-van.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <div>
+                    <h4 class="font-medium capitalize text-lg">Livraison gratuite</h4>
+                    <p class="text-gray-500 text-sm">Peu importe le montant !</p>
+                </div>
             </div>
-          @endforeach
+            <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+                <img src="images/icons/money-back.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <div>
+                    <h4 class="font-medium capitalize text-lg">Retour possible</h4>
+                    <p class="text-gray-500 text-sm">Jusqu'à 2 mois</p>
+                </div>
+            </div>
+            <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
+                <img src="images/icons/service-hours.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <div>
+                    <h4 class="font-medium capitalize text-lg">24/7 Support</h4>
+                    <p class="text-gray-500 text-sm">Toujours là pour vous..</p>
+                </div>
+            </div>
         </div>
-	    </main>
-	  </div>
-  </div>
-</div>
+    </div>
+    <!-- ./features -->
+
+    <!-- categories -->
+    <div class="container py-16">
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Nos catégories</h2>
+        <div class="grid grid-cols-3 gap-3">
+            @foreach ($categories as $category)
+                @if ($category->parent_id == null)
+                    <div class="relative rounded-sm overflow-hidden group">
+                        <img src="/images/category/{{$category->path_banner}}" class="w-full">
+                        <a href="#" class="absolute inset-0 bg-black bg-opacity-40 flex justify-center text-xl text-white font-roboto font-medium group-hover:bg-opacity-60 transition">{{ $category->name }}</a>
+                    </div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+    <!-- ./categories -->
+
+    <!-- ads -->
+    <div class="container pb-16">
+        <a href="#">
+            <img src="https://media.topachat.com/media/s1000/661404463561fa5a79399a1a.webp" alt="ads" class="w-full">
+        </a>
+    </div>
+    <!-- ./ads -->
+
+    <!-- product -->
+    <div class="container pb-16">
+        <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Recommandé pour vous</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            @foreach ($products as $product)
+                <div class="bg-white shadow rounded overflow-hidden group">
+                    <div class="relative">
+                        <img src="images/products/{{$product->images->first()->path}}" class="w-full">
+                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center 
+                        justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                            <a href="{{ url('product/show', $product->id) }}"
+                                class="text-white text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
+                                title="view product">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="pt-4 pb-3 px-4">
+                        <a href="{{ url('product/show', $product->id) }}">
+                            <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{{ $product->name }}</h4>
+                        </a>
+                        <div class="flex items-baseline mb-1 space-x-2">
+                            <p class="text-sm text-gray-400">{{ $product->price }} $</p>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="flex gap-1 text-sm text-yellow-400">
+                                <span><i class="fa-solid fa-star"></i></span>
+                                <span><i class="fa-solid fa-star"></i></span>
+                                <span><i class="fa-solid fa-star"></i></span>
+                                <span><i class="fa-solid fa-star"></i></span>
+                                <span><i class="fa-solid fa-star"></i></span>
+                            </div>
+                            <div class="text-xs text-gray-500 ml-3">(150)</div>
+                        </div>
+                    </div>
+                    <a href="{{ url('product/show', $product->id) }}" class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Ajouter au panier</a>
+                </div>
+            @endforeach
+        </div>
+    </div>
 @endsection
