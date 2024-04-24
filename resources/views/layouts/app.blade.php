@@ -21,6 +21,7 @@
 
         @php
             $currentPath = request()->path();
+            $currentUser = auth()->user();
         @endphp
     </head>
     <body>
@@ -52,9 +53,9 @@
                             <div class="col-md-4 d-flex justify-content-center justify-content-md-end align-items-center">
                                 <div class="d-flex">
                                     <!-- Cart -->
-                                    <a class="text-reset me-3" href="#">
+                                    <a class="text-reset me-3" href="{{ url('/cart') }}">
                                         <span><i class="fas fa-shopping-cart"></i></span>
-                                        <span class="badge rounded-pill badge-notification bg-danger">1</span>
+                                        <span class="badge rounded-pill badge-notification bg-danger">@auth {{$currentUser->cartItems->count()}} @else 0 @endauth</span>
                                     </a>
 
 
@@ -62,8 +63,7 @@
                                     <div class="dropdown">
                                         <a class="text-reset dropdown-toggle d-flex align-items-center hidden-arrow" href="#"
                                             id="navbarDropdownMenuLink" role="button" data-mdb-toggle="dropdown" aria-expanded="false">
-                                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg" class="rounded-circle" height="22"
-                                            alt="" loading="lazy" />
+                                            <img src="img/avatar.png" class="rounded-circle" height="22"/>
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
                                             <li><a class="dropdown-item" href="#">My profile</a></li>
@@ -113,6 +113,41 @@
                 <!-- Navbar -->
 
             </header>
+
+            @if ($errors->any())
+                <div class="col-sm-12 text-center">
+                    <div class="alert  alert-warning alert-dismissible fade show" role="alert">
+                        @foreach ($errors->all() as $error)
+                            <span><p>{{ $error }}</p></span>
+                        @endforeach
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('success'))
+                <div class="col-sm-12 text-center">
+                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                        {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                </div>
+            @endif
+
+            @if (session('error'))
+                <div class="col-sm-12 text-center">
+                    <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                </div>
+            @endif
 
             <main class="py-4">
                 @yield('content')
@@ -191,10 +226,4 @@
             </footer>
         </div>
     </body>
-
-    <!-- MDB -->
-    <script
-    type="text/javascript"
-    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.umd.min.js"
-    ></script>
 </html>
