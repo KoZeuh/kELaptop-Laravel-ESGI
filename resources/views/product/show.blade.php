@@ -61,20 +61,27 @@
 
                         <hr />
 
-                        <div class="row mb-4 d-flex justify-content-center">
-                            <div class="col-md-4 col-6 mb-3 ">
-                                <label class="mb-2 d-block">Quantité</label>
-                                <div class="input-group mb-3" style="width: 170px;">
-                                    <input type="number" class="form-control text-center border border-secondary" min="0" max="{{$countInStock}}" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" />
+                        <form action="{{ url('/cart/addOrUpdate') }}" method="POST">
+                            @csrf
+                            
+                            <div class="row mb-4 d-flex justify-content-center">
+                                <div class="col-md-4 col-6 mb-3 ">
+                                    <label class="mb-2 d-block">Quantité</label>
+                                    <div class="input-group mb-3" style="width: 170px;">
+                                        <input type="number" name="quantity" class="form-control text-center border border-secondary" min="1" max="{{$countInStock}}" value="1" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" required />
+                                    </div>
                                 </div>
-                            </div>
 
-                            @if ($countInStock > 0)
-                                <a href="#" class="btn btn-warning shadow-0"> Buy now </a>
-                                <a href="#" class="m-3 btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-                            @else
-                                <a href="#" class="mt-3 btn btn-danger shadow-0"> Notify me when available </a>
-                            @endif
+                                @if ($countInStock > 0)
+                                    <input type="hidden" name="product_id" value="{{$product->id}}">
+
+                                    <button type="submit" class="m-3 btn btn-primary shadow-0">
+                                        <i class="me-1 fa fa-shopping-basket"></i> Ajouter au panier
+                                    </button>
+                                @else
+                                    <a href="#" class="mt-3 btn btn-danger shadow-0"> Etre alerté de la disponibilité </a>
+                                @endif
+                            </div>
                         </div>
                     </div>
                 </main>
@@ -109,48 +116,22 @@
                                 </p>
 
                                 <h5 class="mt-3">Technical specifications</h5>
-                                {{ $product->details }}
-                                <table class="table border mt-3 mb-2">
-                                    <tr>
-                                        <th class="py-2">Display:</th>
-                                        <td class="py-2">13.3-inch LED-backlit display with IPS</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="py-2">Processor capacity:</th>
-                                        <td class="py-2">2.3GHz dual-core Intel Core i5</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="py-2">Camera quality:</th>
-                                        <td class="py-2">720p FaceTime HD camera</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="py-2">Memory</th>
-                                        <td class="py-2">8 GB RAM or 16 GB RAM</td>
-                                    </tr>
-                                    <tr>
-                                        <th class="py-2">Graphics</th>
-                                        <td class="py-2">Intel Iris Plus Graphics 640</td>
-                                    </tr>
-                                </table>
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-                            Tab content or sample information now <br />
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-3" role="tabpanel" aria-labelledby="ex1-tab-3">
-                            Another tab content or sample information now <br />
-                            Dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                            commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-                            mollit anim id est laborum.
-                            </div>
-                            <div class="tab-pane fade mb-2" id="ex1-pills-4" role="tabpanel" aria-labelledby="ex1-tab-4">
-                            Some other tab content or sample information now <br />
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                            aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
-                            officia deserunt mollit anim id est laborum.
+                                @if ($product->details == null)
+                                    <p>Aucun détails fourni..</p>
+                                @else
+                                    @php
+                                        $details = json_decode($product->details, true);
+                                    @endphp
+
+                                    <table class="table border mt-3 mb-2">
+                                        @foreach($details as $key => $value)
+                                            <tr>
+                                                <th class="py-2">{{ $key }}:</th>
+                                                <td class="py-2">{{ $value }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </table>
+                                @endif
                             </div>
                         </div>
                         <!-- Pills content -->
