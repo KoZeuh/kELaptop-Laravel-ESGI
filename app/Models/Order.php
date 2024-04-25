@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\User;
+use App\Models\OrderItem;
+use App\Models\PromoCode;
 
 class Order extends Model
 {
@@ -16,7 +18,7 @@ class Order extends Model
      *
      * @var array<int, string>
     */
-    protected $fillable = ['status'];
+    protected $fillable = ['user_id', 'status'];
 
     public function user()
     {
@@ -26,5 +28,10 @@ class Order extends Model
     public function items()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function promoCode()
+    {
+        return $this->belongsTo(PromoCode::class);
     }
 }

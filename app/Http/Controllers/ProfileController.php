@@ -5,16 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 
 use App\Models\User;
+use App\Models\Order;
 
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -42,5 +38,12 @@ class ProfileController extends Controller
         $user->save();
 
         return redirect('/profile')->with('success', 'Votre profil a été mis à jour');
+    }
+
+    public function ordersHistory()
+    {
+        $orders = Order::where('user_id', auth()->user()->id)->paginate(2);
+
+        return view('profile.orders-history', compact('orders'));
     }
 }

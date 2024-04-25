@@ -15,6 +15,7 @@ Route::get('/product/show/{product}', [ProductController::class, 'show']);
 Route::middleware(['auth'])->group(function () {
     Route::get('/contact', [App\Http\Controllers\HomeController::class, 'contactUs']);
     Route::get('/checkout', [CartController::class, 'showCheckout']);
+    Route::post('/checkout-validate', [CartController::class, 'checkoutValidate']);
     
     Route::post('/cart/addOrUpdate', [CartController::class, 'addToCart']);
     Route::post('/cart/updateQty', [CartController::class, 'updateQty']);
@@ -22,6 +23,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::post('/profile/save', [ProfileController::class, 'save']);
+
+    Route::get('/profile/orders-history', [ProfileController::class, 'ordersHistory']);
 
     Route::get('/admin', [AdminController::class, 'index']);
 });

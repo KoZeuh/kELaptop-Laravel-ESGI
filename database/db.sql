@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 25 avr. 2024 à 07:52
+-- Généré le : jeu. 25 avr. 2024 à 15:16
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.2.0
 
@@ -91,8 +91,6 @@ CREATE TABLE IF NOT EXISTS `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('a@a.fr|127.0.0.1', 'i:1;', 1713446894),
-('a@a.fr|127.0.0.1:timer', 'i:1713446894;', 1713446894),
 ('kozeuhdev@gmail.com|127.0.0.1', 'i:2;', 1713967844),
 ('kozeuhdev@gmail.com|127.0.0.1:timer', 'i:1713967844;', 1713967844);
 
@@ -127,7 +125,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   PRIMARY KEY (`id`),
   KEY `carts_user_id_foreign` (`user_id`),
   KEY `carts_product_id_foreign` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -295,12 +293,26 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint UNSIGNED NOT NULL,
+  `promo_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `orders_user_id_foreign` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `orders_user_id_foreign` (`user_id`),
+  KEY `orders_promo_code_foreign` (`promo_code`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `promo_code`, `status`, `created_at`, `updated_at`) VALUES
+(1, 4, NULL, 'PENDING', '2024-04-25 13:13:44', '2024-04-25 13:13:44'),
+(2, 4, NULL, 'PENDING', '2024-04-25 13:14:17', '2024-04-25 13:14:17'),
+(3, 4, NULL, 'PENDING', '2024-04-25 13:14:17', '2024-04-25 13:14:17'),
+(4, 4, NULL, 'PENDING', '2024-04-25 13:14:55', '2024-04-25 13:14:55'),
+(5, 4, NULL, 'PENDING', '2024-04-25 13:15:20', '2024-04-25 13:15:20'),
+(6, 4, NULL, 'PENDING', '2024-04-25 13:15:26', '2024-04-25 13:15:26');
 
 -- --------------------------------------------------------
 
@@ -312,7 +324,6 @@ DROP TABLE IF EXISTS `order_items`;
 CREATE TABLE IF NOT EXISTS `order_items` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `quantity` int NOT NULL,
-  `price` decimal(8,2) NOT NULL,
   `order_id` bigint UNSIGNED NOT NULL,
   `product_id` bigint UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -320,7 +331,14 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `order_items_order_id_foreign` (`order_id`),
   KEY `order_items_product_id_foreign` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `quantity`, `order_id`, `product_id`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 1, '2024-04-25 13:13:44', '2024-04-25 13:13:44');
 
 --
 -- Déclencheurs `order_items`
@@ -420,6 +438,48 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `promo_codes`
+--
+
+DROP TABLE IF EXISTS `promo_codes`;
+CREATE TABLE IF NOT EXISTS `promo_codes` (
+  `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `discount` decimal(8,2) NOT NULL,
+  `expiration` timestamp NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_activity` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sessions_user_id_index` (`user_id`),
+  KEY `sessions_last_activity_index` (`last_activity`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `sessions`
+--
+
+INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
+('763l5mDTCiEdcBYflEUIVQwaLVylbW4JIlww5Nbt', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiU1FTOHQ3MmtSbW9aYjUzSjVaOENNZ21NVXhad0xmVkdOMWFOb2l2WSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ0OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvcHJvZmlsZS9vcmRlcnMtaGlzdG9yeSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzE0MDU4MDAzO319', 1714058134);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `stocks`
 --
 
@@ -438,7 +498,7 @@ CREATE TABLE IF NOT EXISTS `stocks` (
 --
 
 INSERT INTO `stocks` (`id`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 0, NULL, NULL),
+(1, 1, NULL, NULL),
 (2, 0, NULL, NULL),
 (3, 0, NULL, NULL),
 (4, 0, NULL, NULL),
@@ -477,21 +537,14 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Déchargement des données de la table `users`
+--
 
-DROP TABLE IF EXISTS `sessions`;
-CREATE TABLE IF NOT EXISTS `sessions` (
-  `id` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `sessions_user_id_index` (`user_id`),
-  KEY `sessions_last_activity_index` (`last_activity`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO `users` (`id`, `firstname`, `lastname`, `phone`, `birthday`, `address`, `city`, `zip`, `country`, `role`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(4, 'Admin', 'Admin', '0123456789', '2000-01-01', '1 Admin Street', 'Admin City', '12345', 'Admin Country', 'user', 'a@a.fr', NULL, '$2y$12$cvc44S6s0c8/GG5dQZaidu0ZCMOF13xtDEzREW1MNxIuZeKWQHrZ6', NULL, NULL, NULL);
 
 --
 -- Contraintes pour les tables déchargées
@@ -520,6 +573,7 @@ ALTER TABLE `image_products`
 -- Contraintes pour la table `orders`
 --
 ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_promo_code_foreign` FOREIGN KEY (`promo_code`) REFERENCES `promo_codes` (`code`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
