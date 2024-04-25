@@ -1,10 +1,10 @@
+@php
+    $currentUser = auth()->user();
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
-    @php
-        $currentUser = auth()->user();
-    @endphp
-
     <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
         <a href="../index.html" class="text-primary text-base">
@@ -25,43 +25,37 @@
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <div>
-                        <label for="first-name" class="text-gray-600">First Name <span
-                                class="text-primary">*</span></label>
-                        <input type="text" name="first-name" id="first-name" class="input-box">
+                        <label for="firstname" class="text-gray-600">Prénom <span class="text-primary">*</span></label>
+                        <input type="text" name="firstname" id="firstname" class="input-box" value="{{$currentUser->firstname}}">
                     </div>
                     <div>
-                        <label for="last-name" class="text-gray-600">Last Name <span
-                                class="text-primary">*</span></label>
-                        <input type="text" name="last-name" id="last-name" class="input-box">
+                        <label for="lastname" class="text-gray-600">Nom <span class="text-primary">*</span></label>
+                        <input type="text" name="lastname" id="lastname" class="input-box" value="{{$currentUser->lastname}}">
                     </div>
                 </div>
-                <div>
-                    <label for="company" class="text-gray-600">Company</label>
-                    <input type="text" name="company" id="company" class="input-box">
+
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="address" class="text-gray-600">Adresse de livraison <span class="text-primary">*</span></label>
+                        <input type="text" name="address" id="address" class="input-box" value="{{$currentUser->address}}">
+                    </div>
+
+                    <div>
+                        <label for="city" class="text-gray-600">Ville <span class="text-primary">*</span></label>
+                        <input type="text" name="city" id="city" class="input-box" value="{{$currentUser->city}}">
+                    </div>
                 </div>
-                <div>
-                    <label for="region" class="text-gray-600">Country/Region</label>
-                    <input type="text" name="region" id="region" class="input-box">
-                </div>
-                <div>
-                    <label for="address" class="text-gray-600">Street address</label>
-                    <input type="text" name="address" id="address" class="input-box">
-                </div>
-                <div>
-                    <label for="city" class="text-gray-600">City</label>
-                    <input type="text" name="city" id="city" class="input-box">
-                </div>
-                <div>
-                    <label for="phone" class="text-gray-600">Phone number</label>
-                    <input type="text" name="phone" id="phone" class="input-box">
-                </div>
-                <div>
-                    <label for="email" class="text-gray-600">Email address</label>
-                    <input type="email" name="email" id="email" class="input-box">
-                </div>
-                <div>
-                    <label for="company" class="text-gray-600">Company</label>
-                    <input type="text" name="company" id="company" class="input-box">
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="phone" class="text-gray-600">Numéro de téléphone <span class="text-primary">*</span></label>
+                        <input type="text" name="phone" id="phone" class="input-box" value="{{$currentUser->phone}}">
+                    </div>
+                    <div>
+                        <label for="email" class="text-gray-600">Adresse email <span class="text-primary">*</span></label>
+                        <input type="email" name="email" id="email" class="input-box" value="{{$currentUser->email}}">
+                    </div>
                 </div>
             </div>
 
@@ -76,7 +70,12 @@
                             <h5 class="text-gray-800 font-medium">{{$item->product->name}} <button onclick="window.location.href='/cart/remove/{{ $item->product->id }}'"><i class="fa-solid fa-trash text-red-500"></i></a></h5>
                         </div>
                         <p class="text-gray-600">
-                            x{{$item->quantity}}
+                            <form action="{{url('/cart/updateQty')}}" method="post">
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{$item->product->id}}">
+                                <input type="number" name="quantity" value="{{$item->quantity}}" class="w-10 border border-gray-200 rounded-sm px-2 py-1">
+                                <button type="submit" class="text-primary"><i class="fa-solid fa-check"></i></button>
+                            </form>
                         </p>
                         <p class="text-gray-800 font-medium">{{$item->product->price * $item->quantity}} $</p>
                     </div>

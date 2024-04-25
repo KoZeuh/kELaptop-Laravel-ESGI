@@ -14,6 +14,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.5/flowbite.min.css" rel="stylesheet" />
+        <script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -71,8 +72,8 @@
                         <div class="flex items-center space-x-6">
                             <a href="{{url('/')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
                             <a href="{{url('product/list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
-                            <a href="#" class="text-gray-200 hover:text-white transition">A propos de nous</a>
-                            <a href="#" class="text-gray-200 hover:text-white transition">Nous contacter</a>
+                            <a href="{{url('aboutus')}}" class="text-gray-200 hover:text-white transition">A propos de nous</a>
+                            <a href="{{url('contact')}}" class="text-gray-200 hover:text-white transition">Nous contacter</a>
                         </div>
                         @guest
                             <a href="{{route('login')}}" class="text-gray-200 hover:text-white transition">Se connecter/S'inscrire</a>

@@ -22,7 +22,5 @@ class CategorySeeder extends Seeder
         DB::table('categories')->insert(['name' => 'Téléphonie']);
         DB::table('categories')->insert(['name' => 'Smartphones', 'parent_id' => 7]);
         DB::table('categories')->insert(['name' => 'Tablettes']);
-
-
     }
 }

@@ -106,7 +106,7 @@
                             @if($category->parent_id == null)
                                 <div class="flex items-center">
                                     <input type="checkbox" name="{{ $category->name }}" id="{{ $category->name }}"
-                                        class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                        class="text-primary focus:ring-0 rounded-sm cursor-pointer category">
                                     <label for="{{ $category->name }}" class="text-gray-600 ml-3 cusror-pointer">{{ $category->name }}</label>
                                     <div class="ml-auto text-gray-600 text-sm">({{$category->products->count()}})</div>
                                 </div>
@@ -115,7 +115,7 @@
                                 @foreach($categories as $subCategory)
                                     @if($subCategory->parent_id == $category->id)
                                         <div class="ml-6 flex items-center">
-                                            <input type="checkbox" name="{{ $subCategory->name }}" id="{{ $subCategory->name }}" class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                            <input type="checkbox" name="{{ $subCategory->name }}" id="{{ $subCategory->name }}" class="category text-primary focus:ring-0 rounded-sm cursor-pointer">
                                             <label for="{{ $subCategory->name }}" class="text-gray-600 ml-3 cusror-pointer">{{ $subCategory->name }}</label>
                                             <div class="ml-auto text-gray-600 text-sm">({{$subCategory->products->count()}})</div>
                                         </div>
@@ -132,23 +132,10 @@
                         @foreach($brands as $brand)
                             <div class="flex items-center">
                                 <input type="checkbox" name="{{ $brand->name }}" id="{{ $brand->name }}"
-                                    class="text-primary focus:ring-0 rounded-sm cursor-pointer">
+                                    class="brand text-primary focus:ring-0 rounded-sm cursor-pointer">
                                 <label for="{{ $brand->name }}" class="text-gray-600 ml-3 cusror-pointer">{{ $brand->name }}</label>
                             </div>
                         @endforeach
-                    </div>
-                </div>
-
-                <div class="pt-4">
-                    <h3 class="text-xl text-gray-800 mb-3 uppercase font-medium">Prix</h3>
-                    <div class="mt-4 flex items-center">
-                        <input type="text" name="min" id="min"
-                            class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                            placeholder="min">
-                        <span class="mx-3 text-gray-500">-</span>
-                        <input type="text" name="max" id="max"
-                            class="w-full border-gray-300 focus:border-primary rounded focus:ring-0 px-3 py-1 text-gray-600 shadow-sm"
-                            placeholder="max">
                     </div>
                 </div>
             </div>
@@ -158,14 +145,6 @@
         <div class="col-span-3">
             
             <div class="flex items-center mb-4">
-                <select name="sort" id="sort"
-                    class="w-44 text-sm text-gray-600 py-3 px-4 border-gray-300 shadow-sm rounded focus:ring-primary focus:border-primary">
-                    <option value="">Default sorting</option>
-                    <option value="price-low-to-high">Price low to high</option>
-                    <option value="price-high-to-low">Price high to low</option>
-                    <option value="latest">Latest product</option>
-                </select>
-
                 <div class="flex gap-2 ml-auto">
                     <div
                         class="border border-primary w-10 h-9 flex items-center justify-center text-white bg-primary rounded cursor-pointer">
@@ -180,7 +159,7 @@
 
             <div class="grid md:grid-cols-3 grid-cols-2 gap-6">
                 @foreach ($products as $product)
-                        <div class="bg-white shadow rounded overflow-hidden group">
+                        <div class="bg-white shadow rounded overflow-hidden group product" data-category="{{ $product->category->name }}" data-brand="{{ $product->brand->name }}" data-price="{{ $product->price }}">
                             <div class="relative">
                                 <img src="/images/products/{{$product->images->first()->path}}" alt="product 1" class="w-full">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center 
@@ -215,6 +194,39 @@
                         </div>
                 @endforeach
             </div>
+
+            <div class="flex justify-center mt-5">
+                {!! $products->links() !!}
+            </div>  
         </div>
     </div>
 @endsection
+
+<script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const products = document.querySelectorAll('.product');
+
+            function filterProducts() {
+                const selectedCategories = Array.from(document.querySelectorAll('.category:checked')).map(checkbox => checkbox.name);
+                const selectedBrands = Array.from(document.querySelectorAll('.brand:checked')).map(checkbox => checkbox.name);
+
+                products.forEach(product => {
+                    const category = product.dataset.category;
+                    const brand = product.dataset.brand;
+
+                    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category);
+                    const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
+
+                    if (categoryMatch && brandMatch) {
+                        product.style.display = 'block';
+                    } else {
+                        product.style.display = 'none';
+                    }
+                });
+            }
+
+            document.querySelectorAll('.category, .brand').forEach(input => {
+                input.addEventListener('change', filterProducts);
+            });
+        });
+    </script>

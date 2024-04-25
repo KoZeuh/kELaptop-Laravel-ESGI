@@ -35,31 +35,31 @@
 
             <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
                 <div class="space-y-1 pl-8">
-                    <a href="{{url('/profile')}}" class="relative text-primary block font-medium capitalize transition">
+                    <a href="{{url('/profile')}}" class="relative text-primary block font-medium transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-regular fa-address-card"></i>
                         </span>
                         Gestion de mes informations
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-primary block transition">
                         Changer mon mot de passe
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="#" class="relative hover:text-primary block font-medium capitalize transition">
+                    <a href="#" class="relative hover:text-primary block font-medium transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-solid fa-box-archive"></i>
                         </span>
                         Mon historique de commandes
                     </a>
-                    <a href="#" class="relative hover:text-primary block capitalize transition">
+                    <a href="#" class="relative hover:text-primary block transition">
                         Mes commentaires
                     </a>
                 </div>
 
                 <div class="space-y-1 pl-8 pt-4">
-                    <a href="{{url('/logout')}}" class="relative hover:text-primary block font-medium capitalize transition">
+                    <a href="{{url('/logout')}}" class="relative hover:text-primary block font-medium transition">
                         <span class="absolute -left-8 top-0 text-base">
                             <i class="fa-solid fa-right-from-bracket"></i>
                         </span>
@@ -76,39 +76,41 @@
             <h4 class="text-lg font-medium capitalize mb-4">
                 Informations personnelles
             </h4>
-            <div class="space-y-4">
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="first">Prénom</label>
-                        <input type="text" name="first" id="first" class="input-box" value="{{$currentUser->first_name}}">
+            <form action="{{url('/profile/save')}}" method="POST">
+                @csrf
+                <div class="space-y-4">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="firstName">Prénom</label>
+                            <input type="text" name="firstName" id="firstName" class="input-box" value="{{$currentUser->first_name}}">
+                        </div>
+                        <div>
+                            <label for="lastName">Nom de famille</label>
+                            <input type="text" name="lastName" id="lastName" class="input-box" value="{{$currentUser->last_name}}">
+                        </div>
                     </div>
-                    <div>
-                        <label for="last">Nom de famille</label>
-                        <input type="text" name="last" id="last" class="input-box" value="{{$currentUser->last_name}}">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="birthday">Date de naissance</label>
+                            <input type="date" name="birthday" id="birthday" class="input-box" value="{{$currentUser->birthday}}">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="email">Email</label>
+                            <input type="email" name="email" id="email" class="input-box" value="{{$currentUser->email}}">
+                        </div>
+                        <div>
+                            <label for="phone">Numéro de téléphone</label>
+                            <input type="text" name="phone" id="phone" class="input-box" value="{{$currentUser->phone}}">
+                        </div>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="birthday">Date de naissance</label>
-                        <input type="date" name="birthday" id="birthday" class="input-box" value="{{$currentUser->birthday}}">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label for="email">Email</label>
-                        <input type="email" name="email" id="email" class="input-box" value="{{$currentUser->email}}">
-                    </div>
-                    <div>
-                        <label for="phone">Numéro de téléphone</label>
-                        <input type="text" name="phone" id="phone" class="input-box" value="{{$currentUser->phone}}">
-                    </div>
-                </div>
-            </div>
 
-            <div class="mt-4">
-                <button type="submit"
-                    class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">Sauvegarder les changements</button>
-            </div>
+                <div class="mt-4">
+                    <button type="submit" class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">Sauvegarder les changements</button>
+                </div>
+            </form>
         </div>
         <!-- ./info -->
 

@@ -15,8 +15,9 @@ class ProductController extends Controller
     public function list()
     {
         $categories = Category::all();
-        $products = Product::all();
+        $products = Product::paginate(9);
         $brands = Brand::all();
+
         return view('product.list', compact('products', 'categories', 'brands'));
     }
 

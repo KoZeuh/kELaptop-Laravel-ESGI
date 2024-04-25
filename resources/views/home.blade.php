@@ -1,22 +1,34 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- banner -->
-    <div class="bg-cover bg-no-repeat bg-center py-36" style="background-image: url('images/banner-bg.jpg');">
-        <div class="container">
-            <h1 class="text-6xl text-gray-800 font-medium mb-4 capitalize">
-                Meilleur collection <br> d'objet numérique
-            </h1>
-            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aperiam <br>
-                accusantium perspiciatis, sapiente
-                magni eos dolorum ex quos dolores odio</p>
-            <div class="mt-12">
-                <a href="#" class="bg-primary border border-primary text-white px-8 py-3 font-medium 
-                    rounded-md hover:bg-transparent hover:text-primary">Découvrir maintenant</a>
-            </div>
+    <div id="default-carousel" class="relative rounded-lg overflow-hidden shadow-lg" data-carousel="static">
+        <div class="relative md:h-96" data-carousel-inner>
+            @for ($i = 0; $i < 3; $i++)
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="images/pubs/{{$i + 1}}.webp" class="object-cover w-full">
+                </div>
+            @endfor
         </div>
+
+        <div class="flex absolute bottom-5 left-1/2 z-30 -translate-x-1/2 space-x-2" data-carousel-indicators>
+            <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+            <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+            <button type="button" class="w-3 h-3 rounded-full bg-gray-300 hover:bg-gray-400 focus:outline-none focus:bg-gray-400 transition"></button>
+        </div>
+
+
+        <button type="button" class="flex absolute top-1/2 left-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition" data-carousel-prev>
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+            </svg>
+        </button>
+
+        <button type="button" class="flex absolute top-1/2 right-3 z-40 items-center justify-center w-10 h-10 bg-gray-200/50 rounded-full hover:bg-gray-300 focus:outline-none transition" data-carousel-next>
+            <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+        </button>
     </div>
-    <!-- ./banner -->
 
     <!-- features -->
     <div class="container py-16">
@@ -47,7 +59,7 @@
     <!-- ./features -->
 
     <!-- categories -->
-    <div class="container py-16">
+    <div class="container">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Nos catégories</h2>
         <div class="grid grid-cols-3 gap-3">
             @foreach ($categories as $category)
@@ -62,16 +74,8 @@
     </div>
     <!-- ./categories -->
 
-    <!-- ads -->
-    <div class="container pb-16">
-        <a href="#">
-            <img src="https://media.topachat.com/media/s1000/661404463561fa5a79399a1a.webp" alt="ads" class="w-full">
-        </a>
-    </div>
-    <!-- ./ads -->
-
     <!-- product -->
-    <div class="container pb-16">
+    <div class="container py-16">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Recommandé pour vous</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
             @foreach ($products as $product)
@@ -91,18 +95,24 @@
                         <a href="{{ url('product/show', $product->id) }}">
                             <h4 class="uppercase font-medium text-xl mb-2 text-gray-800 hover:text-primary transition">{{ $product->name }}</h4>
                         </a>
+
+                        <p class="text-sm text-gray-500 mb-2">{{ $product->category->name }}</p>
+                        
                         <div class="flex items-baseline mb-1 space-x-2">
                             <p class="text-sm text-gray-400">{{ $product->price }} $</p>
                         </div>
                         <div class="flex items-center">
                             <div class="flex gap-1 text-sm text-yellow-400">
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
+                                @php
+                                    $randomStarsInt = random_int(1, 5); 
+                                    $randomCountReviews = random_int(1, 100);
+                                @endphp
+
+                                @for ($i = 0; $i < $randomStarsInt; $i++)
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                @endfor
                             </div>
-                            <div class="text-xs text-gray-500 ml-3">(150)</div>
+                            <div class="text-xs text-gray-500 ml-3">( {{ $randomCountReviews }} avis )</div>
                         </div>
                     </div>
                     <a href="{{ url('product/show', $product->id) }}" class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Ajouter au panier</a>

@@ -33,6 +33,21 @@ class CartController extends Controller
         return redirect()->back();
     }
 
+    public function updateQty(Request $request)
+    {
+        if ($request->quantity <= 0) {
+            Cart::where('user_id', auth()->user()->id)
+                ->where('product_id', $request->product_id)
+                ->delete();
+        } else {
+            Cart::where('user_id', auth()->user()->id)
+            ->where('product_id', $request->product_id)
+            ->update(['quantity' => $request->quantity]);
+        }
+    
+        return redirect()->back();
+    }
+
 
     public function showCheckout()
     {

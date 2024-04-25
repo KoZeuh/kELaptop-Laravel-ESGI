@@ -9,19 +9,13 @@
         <span class="text-sm text-gray-400">
             <i class="fa-solid fa-chevron-right"></i>
         </span>
-        <p class="text-gray-600 font-medium">Produit</p>
+        <p class="text-gray-600 font-medium">Détails d'un produit</p>
     </div>
     <!-- ./breadcrumb -->
 
     <!-- product-detail -->
     <div class="container grid grid-cols-2 gap-6">
         <div>
-            @foreach ($product->images as $image)
-                @if ($image->isPrimary == 1)
-                    <img src="/images/products/{{ $image->path }}" class="w-full">
-                @endif
-            @endforeach
-
             <div class="grid grid-cols-5 gap-4 mt-4">
                 @foreach ($product->images as $image)
                     @if ($image->isPrimary == 0)
@@ -29,19 +23,18 @@
                     @endif
                 @endforeach
             </div>
+
+            @foreach ($product->images as $image)
+                @if ($image->isPrimary == 1)
+                    <img src="/images/products/{{ $image->path }}" class="w-full">
+                @endif
+            @endforeach
         </div>
 
         <div>
             <h2 class="text-3xl font-medium uppercase mb-2">{{ $product->name }}</h2>
             <div class="flex items-center mb-4">
-                <div class="flex gap-1 text-sm text-yellow-400">
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                    <span><i class="fa-solid fa-star"></i></span>
-                </div>
-                <div class="text-xs text-gray-500 ml-3">(150 Reviews)</div>
+                <div class="text-xs text-gray-500 ml-3">{{$countOfOrdersProduct}} client(s) ont acheté ce produit</div>
             </div>
             <div class="space-y-2">
                 <p class="text-gray-800 font-semibold space-x-2">
@@ -50,7 +43,7 @@
                     @if ($countInStock > 0)
                         <span class="text-green-600"><i class="fas fa-eye"></i> {{$countInStock}} en stock</span>
                     @else
-                        <span class="text-danger-600">RUPTURE DE STOCK</span>
+                        <span class="text-red-600">RUPTURE DE STOCK</span>
                     @endif
                 </p>
                 <p class="space-x-2">
@@ -66,79 +59,76 @@
                 <p class="text-xl text-primary font-semibold">{{$product->price}} $</p>
             </div>
 
-            <form action="{{ url('/cart/addOrUpdate') }}" method="POST">
-                @csrf
-                
-                <div class="row mb-4 d-flex justify-content-center">
-                    <div class="col-md-4 col-6 mb-3 ">
-                        <label class="mb-2 d-block">Quantité</label>
-                        <div class="input-group mb-3" style="width: 170px;">
-                            <input type="number" name="quantity" class="form-control text-center border border-secondary" min="1" max="{{$countInStock}}" value="1" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" required />
+            <div class="row mb-4 d-flex justify-content-center">
+                @if ($countInStock > 0)
+                    <form action="{{ url('/cart/addOrUpdate') }}" method="POST">
+                        @csrf
+                        <div class="col-md-4 col-6 mb-3 ">
+                            <label class="mb-2 d-block">Quantité</label>
+                            <div class="input-group mb-3" style="width: 170px;">
+                                <input type="number" name="quantity" class="form-control text-center border border-secondary" min="1" max="{{$countInStock}}" value="1" placeholder="1" aria-label="Example text with button addon" aria-describedby="button-addon1" required />
+                            </div>
                         </div>
-                    </div>
 
-                    @if ($countInStock > 0)
+                        
                         <input type="hidden" name="product_id" value="{{$product->id}}">
 
-                        <button type="submit"
-                            class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
+                        <button type="submit" class="bg-primary border border-primary text-white px-8 py-2 font-medium rounded uppercase flex items-center gap-2 hover:bg-transparent hover:text-primary transition">
                             <i class="fa-solid fa-bag-shopping"></i> Ajouter au panier
                         </button>
-                    @else
-                        <a href="#" class="mt-3 btn btn-danger shadow-0"> Etre alerté de la disponibilité </a>
-                    @endif
-                </div>
+                    </form>
+                @else
+                    <button class="flex items-center p-4 mb-4 text-sm text-yellow-800 border border-yellow-300 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300 dark:border-yellow-800" role="alert">
+                        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                        </svg>
+
+                        <span class="sr-only">Info</span>
+
+                        <div>
+                            <span class="font-medium">Cliquez ici pour être informé de la disponibilité</span>
+                        </div>
+                    </button>
+                @endif
             </div>
             
 
             <div class="flex gap-3 mt-4">
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-facebook-f"></i>
-                </a>
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-twitter"></i>
-                </a>
-                <a href="#"
-                    class="text-gray-400 hover:text-gray-500 h-8 w-8 rounded-full border border-gray-300 flex items-center justify-center">
-                    <i class="fa-brands fa-instagram"></i>
-                </a>
+                <!-- description -->
+                <div class="container pb-16">
+                    <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Détails du produit</h3>
+                    <div class="w-3/5 pt-6">
+                        <div class="text-gray-600">
+                            {{$product->description}}
+                        </div>
+
+                        @if ($product->details == null)
+                        <p>Aucun détails fourni..</p>
+                        @else
+                            @php
+                                $details = json_decode($product->details, true);
+                            @endphp
+
+                            <table class="table-auto border-collapse w-full text-left text-gray-600 text-sm mt-6">
+                                @foreach($details as $key => $value)
+                                    <tr>
+                                        <th class="py-2 px-4 border border-gray-300 w-40 font-medium">{{ $key }}:</th>
+                                        <td class="py-2 px-4 border border-gray-300">{{ $value }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        @endif
+                    </div>
+                </div>
+                <!-- ./description -->
             </div>
         </div>
     </div>
     <!-- ./product-detail -->
 
-    <!-- description -->
-    <div class="container pb-16">
-        <h3 class="border-b border-gray-200 font-roboto text-gray-800 pb-3 font-medium">Détails du produit</h3>
-        <div class="w-3/5 pt-6">
-            <div class="text-gray-600">
-                {{$product->description}}
-            </div>
-
-            @if ($product->details == null)
-            <p>Aucun détails fourni..</p>
-            @else
-                @php
-                    $details = json_decode($product->details, true);
-                @endphp
-
-                <table class="table-auto border-collapse w-full text-left text-gray-600 text-sm mt-6">
-                    @foreach($details as $key => $value)
-                        <tr>
-                            <th class="py-2 px-4 border border-gray-300 w-40 font-medium">{{ $key }}:</th>
-                            <td class="py-2 px-4 border border-gray-300">{{ $value }}</td>
-                        </tr>
-                    @endforeach
-                </table>
-            @endif
-        </div>
-    </div>
-    <!-- ./description -->
 
     <!-- related product -->
-    <div class="container pb-16">
+    <div class="container pb-16 mt-5">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Produit(s) similaire(s)</h2>
         <div class="grid grid-cols-4 gap-6">
 
@@ -163,14 +153,18 @@
                             <p class="text-xl text-primary font-semibold">{{ $similarProduct->price }} $</p>
                         </div>
                         <div class="flex items-center">
+                            @php
+                                $randomStarsInt = random_int(1, 5); 
+                                $randomCountReviews = random_int(1, 100);
+                            @endphp
+
                             <div class="flex gap-1 text-sm text-yellow-400">
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
-                                <span><i class="fa-solid fa-star"></i></span>
+                                @for ($i = 0; $i < $randomStarsInt; $i++)
+                                    <span><i class="fa-solid fa-star"></i></span>
+                                @endfor
                             </div>
-                            <div class="text-xs text-gray-500 ml-3">(150)</div>
+
+                            <div class="text-xs text-gray-500 ml-3">( {{ $randomCountReviews }} avis )</div>
                         </div>
                     </div>
                     <a href="{{ url('product/show', $similarProduct->id) }}"
