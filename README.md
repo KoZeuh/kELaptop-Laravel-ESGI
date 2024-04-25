@@ -20,7 +20,7 @@ Page de Détail d'un Produit (2pts):
 Page de Panier (3pts): 
 
 - Récapitulatif des produits ajoutés au panier par l'utilisateur. ✅ 
-- Possibilité de modifier la quantité des produits ou de supprimer des produits du panier. 
+- Possibilité de modifier la quantité des produits ou de supprimer des produits du panier. ✅
 - Affichage du total de la commande. ✅
 
 Validation du Panier (2pts):
