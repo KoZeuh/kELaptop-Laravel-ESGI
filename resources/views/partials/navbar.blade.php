@@ -30,6 +30,16 @@
                         </div>
                         <div class="text-xs leading-3">Mon compte</div>
                     </a>
+
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <button type="submit" class="text-center text-gray-700 hover:text-primary transition relative">
+                            <div class="text-2xl">
+                                <i class="fa-solid fa-sign-out"></i>
+                            </div>
+                            <div class="text-xs leading-3">Déconnexion</div>
+                        </button>
+                    </form>
                 @endauth
             </div>
         </div>
@@ -39,13 +49,16 @@
 <nav class="bg-gray-800">
     <div class="container flex">
         <div class="flex items-center justify-between flex-grow md:pl-12 py-5">
-                <div class="flex items-center space-x-6">
-                    <a href="{{url('/')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
-                    <a href="{{url('product/list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
-                    <a href="{{url('aboutus')}}" class="text-gray-200 hover:text-white transition">A propos de nous</a>
-                    <a href="{{url('contact')}}" class="text-gray-200 hover:text-white transition">Nous contacter</a>
-                </div>
-            @guest
+            <div class="flex items-center space-x-6">
+                <a href="{{url('/')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
+                <a href="{{url('product/list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
+                <a href="{{url('aboutus')}}" class="text-gray-200 hover:text-white transition">A propos de nous</a>
+                <a href="{{url('contact')}}" class="text-gray-200 hover:text-white transition">Nous contacter</a>
+            </div>
+
+            @auth
+                <a href="{{url('/admin')}}" class="text-gray-200 hover:text-white transition">Administration</a>
+            @elseauth
                 <a href="{{route('login')}}" class="text-gray-200 hover:text-white transition">Se connecter/S'inscrire</a>
             @endguest
         </div>

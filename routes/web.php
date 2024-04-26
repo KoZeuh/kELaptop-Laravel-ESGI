@@ -42,8 +42,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/profile/save', [ProfileController::class, 'save']);
 
     Route::get('/profile/orders-history', [ProfileController::class, 'ordersHistory']);
-
-    Route::get('/admin', [AdminController::class, 'index']);
 });
 
 

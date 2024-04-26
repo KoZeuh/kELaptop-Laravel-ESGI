@@ -44,19 +44,6 @@
                     Mon historique de commandes
                 </a>
             </div>
-
-            <div class="space-y-1 pl-8 pt-4">
-                <form action="{{route('logout')}}" method="POST">
-                    @csrf
-                        
-                    <button type="submit" class="relative hover:text-primary block font-medium transition">
-                        <span class="absolute -left-8 top-0 text-base">
-                            <i class="fa-solid fa-right-from-bracket"></i>
-                        </span>
-                        Se déconnecter
-                    </button>
-                </form>
-            </div>
         </div>
     </div>
 

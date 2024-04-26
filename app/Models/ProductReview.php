@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use Backpack\CRUD\app\Models\Traits\CrudTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ProductReview extends Model
 {
+    use CrudTrait;
     protected $fillable = ['product_id', 'user_id', 'rating', 'review'];
 
     public function product()
