@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Category;
-use App\Models\ImageProduct;
+use App\Models\ProductImage;
+use App\Models\Brand;
+use App\Models\Cart;
+use App\Models\OrderItem;
 
 class Product extends Model
 {
@@ -36,12 +39,22 @@ class Product extends Model
 
     public function images()
     {
-        return $this->hasMany(ImageProduct::class);
+        return $this->hasMany(ProductImage::class);
     }
 
     public function carts()
     {
         return $this->hasMany(Cart::class);
+    }
+
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class);
     }
 
 }

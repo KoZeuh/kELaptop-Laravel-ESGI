@@ -37,7 +37,7 @@
                                 <a href="/product/show/{{$item->product->id}}"><img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="/images/products/{{$item->product->images->first()->path}}"/></a>
                                 
                                 <div class="flex w-full flex-col px-4 py-4">
-                                    <span class="font-semibold">{{$item->product->name}} - <button onclick="window.location.href='/cart/remove/{{ $item->product->id }}'"><i class="fa-solid fa-trash text-red-500"></i></button></span> 
+                                    <span class="font-semibold">{{$item->product->name}} - <button type="button" onclick="window.location.href='/cart/remove/{{ $item->product->id }}'"><i class="fa-solid fa-trash text-red-500"></i></button></span> 
                                     <p class="text-lg font-bold">{{$item->product->price * $item->quantity}} $ ({{$item->product->price}} $/u)</p>
 
                                     <form action="{{url('/cart/updateQty')}}" method="post">
@@ -62,7 +62,7 @@
                         <input class="peer hidden" id="delivery_dhl" type="radio" name="delivery_dhl" />
                         <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                         <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
-                            <img class="w-14 object-contain" src="/images/delivery/dhl.png" alt="" />
+                            <img class="w-14 object-contain" src="/images/delivery/dhl.png"/>
                             <div class="ml-5">
                                 <span class="mt-2 font-semibold">DHL</span>
                                 <p class="text-slate-500 text-sm leading-6">Entre 2 et 4 jours ouvrés</p>
@@ -74,7 +74,7 @@
                         <input class="peer hidden" id="delivery_ups" type="radio" name="delivery_ups" />
                         <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                         <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_2">
-                            <img class="w-14 object-contain" src="/images/delivery/ups.png" alt="" />
+                            <img class="w-14 object-contain" src="/images/delivery/ups.png"/>
                             <div class="ml-5">
                                 <span class="mt-2 font-semibold">UPS</span>
                                 <p class="text-slate-500 text-sm leading-6">Entre 3 et 5 jours ouvrés</p>
@@ -86,13 +86,23 @@
                         <input class="peer hidden" id="delivery_fedex" type="radio" name="delivery_fedex" checked />
                         <span class="peer-checked:border-gray-700 absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
                         <label class="peer-checked:border-2 peer-checked:border-gray-700 peer-checked:bg-gray-50 flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_3">
-                            <img class="w-14 object-contain" src="/images/delivery/fedex.png" alt="" />
+                            <img class="w-14 object-contain" src="/images/delivery/fedex.png"/>
                             <div class="ml-5">
                                 <span class="mt-2 font-semibold">FedEx</span>
                                 <p class="text-slate-500 text-sm leading-6">Entre 4 et 6 jours ouvrés</p>
                             </div>
                         </label>
                     </div>
+
+                    <form action="{{url('/cart/checkCoupon')}}" method="POST">
+                        @csrf
+
+                        <p class="mt-8 text-lg font-medium">Code promo</p>
+                        <div class="flex">
+                            <input name="coupon" id="coupon" type="text" class="w-3/4 border border-gray-200 rounded-md px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" required placeholder="Entrez votre code promo" />
+                            <button class="w-1/4 rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Appliquer</button>
+                        </div>
+                    </form>
                 @endif
             </div>
 
@@ -170,7 +180,7 @@
                                 <div class="relative flex-shrink-0 sm:w-7/12">
                                     <input type="text" id="billing-address" name="billing-address" value="{{$currentUser->address}}" class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500" placeholder="Street Address" />
                                     <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
-                                        <img class="h-4 w-4 object-contain" src="https://flagpack.xyz/_nuxt/4c829b6c0131de7162790d2f897a90fd.svg" alt="" />
+                                        <img class="h-4 w-4 object-contain" src="https://flagpack.xyz/_nuxt/4c829b6c0131de7162790d2f897a90fd.svg"/>
                                     </div>
                                 </div>
 
@@ -184,9 +194,19 @@
 
                         @php
                             $cartTotalAmount = $currentUser->cartItems->sum(function($item) { return $item->product->price * $item->quantity; });
+                            $amountWithDiscount = 0;
+                            $promoDiscount = 0;
+
+                            if (session('promoCode')) {
+                                $promoCode = session('promoCode');
+
+                                $promoDiscount = $promoCode->discount;
+                                $promoCode = $promoCode->code;
+
+                                $amountWithDiscount = ($cartTotalAmount * $promoDiscount / 100);
+                            }
                         @endphp
 
-                        <!-- Total -->
                         <div class="mt-6 border-t border-b py-2">
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Sous-total</p>
@@ -195,19 +215,25 @@
 
                             <div class="flex items-center justify-between">
                                 <p class="text-sm font-medium text-gray-900">Frais de livraison</p>
-                                <p class="font-semibold text-gray-900">$0.00</p>
+                                <p class="font-semibold text-gray-900">0.00 $</p>
                             </div>
+
+                            @if ($amountWithDiscount > 0)
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-medium text-gray-900">Réduction ({{$promoDiscount}} %) (Code : <u>{{$promoCode}})</p>
+                                    <p class="font-semibold text-gray-900"></u>{{$amountWithDiscount}} $ - <button type="button" onclick="window.location.href='/cart/removeCoupon'"><i class="fa-solid fa-trash text-red-500"></i></button></p>
+                                </div>
+                            @endif
                         </div>
+
                         <div class="mt-6 flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Total</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{$cartTotalAmount}} $</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{$cartTotalAmount - ($cartTotalAmount * $promoDiscount / 100)}} $</p>
                         </div>
                     </div>
 
                     @if (!$currentUser->cartItems->isEmpty())
                         <button type="submit" class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">Passer commande</button>
-                    @else
-                        <button class="mt-4 mb-8 w-full rounded-md bg-red-900 px-6 py-3 font-medium text-white" disabled>Passer commande</button>
                     @endif
                 </div>
             </form>

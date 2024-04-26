@@ -1,22 +1,19 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- breadcrumb -->
     <div class="container py-4 flex items-center gap-3">
         <a href="{{url('/')}}" class="text-primary text-base">
             <i class="fa-solid fa-house"></i>
         </a>
+
         <span class="text-sm text-gray-400">
             <i class="fa-solid fa-chevron-right"></i>
         </span>
+
         <p class="text-gray-600 font-medium">Produits</p>
     </div>
-    <!-- ./breadcrumb -->
 
-    <!-- shop wrapper -->
     <div class="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
-        <!-- sidebar -->
-        <!-- drawer init and toggle -->
         <div class="text-center md:hidden" >
             <button
                 class="text-white hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block md:hidden"
@@ -96,7 +93,6 @@
             </div>
         </div>
 
-        <!-- ./sidebar -->
         <div class="col-span-1 bg-white px-4 pb-6 shadow rounded overflow-hiddenb hidden md:block">
             <div class="divide-y divide-gray-200 space-y-5">
                 <div>
@@ -141,9 +137,7 @@
             </div>
         </div>
 
-        <!-- products -->
         <div class="col-span-3">
-            
             <div class="flex items-center mb-4">
                 <div class="flex gap-2 ml-auto">
                     <div
@@ -161,7 +155,7 @@
                 @foreach ($products as $product)
                         <div class="bg-white shadow rounded overflow-hidden group product" data-category="{{ $product->category->name }}" data-brand="{{ $product->brand->name }}" data-price="{{ $product->price }}">
                             <div class="relative">
-                                <img src="/images/products/{{$product->images->first()->path}}" alt="product 1" class="w-full">
+                                <img src="/images/products/{{$product->images->first()->path}}" class="w-full">
                                 <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center 
                                 justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
                                     <a href="{{ url('product/show', $product->id) }}"
@@ -180,13 +174,19 @@
                                 </div>
                                 <div class="flex items-center">
                                     <div class="flex gap-1 text-sm text-yellow-400">
-                                        <span><i class="fa-solid fa-star"></i></span>
-                                        <span><i class="fa-solid fa-star"></i></span>
-                                        <span><i class="fa-solid fa-star"></i></span>
-                                        <span><i class="fa-solid fa-star"></i></span>
-                                        <span><i class="fa-solid fa-star"></i></span>
+                                        @php
+                                            $avgRating = number_format($product->reviews()->avg('rating'), 1, '.', ',');
+
+                                            if ($avgRating == 0) {
+                                                $avgRating = 1;
+                                            }
+                                        @endphp
+
+                                        @for ($i = 0; $i < intval($avgRating); $i++)
+                                            <span class="text-yellow-500"><i class="fa-solid fa-star"></i></span>
+                                        @endfor
                                     </div>
-                                    <div class="text-xs text-gray-500 ml-3">(150)</div>
+                                    <div class="text-xs text-gray-500 ml-3">( {{ $product->reviews->count() }} avis )</div>
                                 </div>
                             </div>
                             <a href="{{ url('product/show', $product->id) }}"
@@ -201,32 +201,3 @@
         </div>
     </div>
 @endsection
-
-<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const products = document.querySelectorAll('.product');
-
-            function filterProducts() {
-                const selectedCategories = Array.from(document.querySelectorAll('.category:checked')).map(checkbox => checkbox.name);
-                const selectedBrands = Array.from(document.querySelectorAll('.brand:checked')).map(checkbox => checkbox.name);
-
-                products.forEach(product => {
-                    const category = product.dataset.category;
-                    const brand = product.dataset.brand;
-
-                    const categoryMatch = selectedCategories.length === 0 || selectedCategories.includes(category);
-                    const brandMatch = selectedBrands.length === 0 || selectedBrands.includes(brand);
-
-                    if (categoryMatch && brandMatch) {
-                        product.style.display = 'block';
-                    } else {
-                        product.style.display = 'none';
-                    }
-                });
-            }
-
-            document.querySelectorAll('.category, .brand').forEach(input => {
-                input.addEventListener('change', filterProducts);
-            });
-        });
-    </script>

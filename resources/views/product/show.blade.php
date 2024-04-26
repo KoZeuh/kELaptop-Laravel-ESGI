@@ -1,3 +1,7 @@
+@php
+    $currentUser = auth()->user();
+@endphp
+
 @extends('layouts.app')
 
 @section('content')
@@ -124,10 +128,9 @@
             </div>
         </div>
     </div>
-    <!-- ./product-detail -->
 
-
-    <!-- related product -->
+    @include('review.show')
+                
     <div class="container pb-16 mt-5">
         <h2 class="text-2xl font-medium text-gray-800 uppercase mb-6">Produit(s) similaire(s)</h2>
         <div class="grid grid-cols-4 gap-6">
@@ -153,18 +156,20 @@
                             <p class="text-xl text-primary font-semibold">{{ $similarProduct->price }} $</p>
                         </div>
                         <div class="flex items-center">
-                            @php
-                                $randomStarsInt = random_int(1, 5); 
-                                $randomCountReviews = random_int(1, 100);
-                            @endphp
-
                             <div class="flex gap-1 text-sm text-yellow-400">
-                                @for ($i = 0; $i < $randomStarsInt; $i++)
-                                    <span><i class="fa-solid fa-star"></i></span>
+                                @php
+                                    $avgRating = number_format($similarProduct->reviews()->avg('rating'), 1, '.', ',');
+
+                                    if ($avgRating == 0) {
+                                        $avgRating = 1;
+                                    }
+                                @endphp
+
+                                @for ($i = 0; $i < intval($avgRating); $i++)
+                                    <span class="text-yellow-500"><i class="fa-solid fa-star"></i></span>
                                 @endfor
                             </div>
-
-                            <div class="text-xs text-gray-500 ml-3">( {{ $randomCountReviews }} avis )</div>
+                            <div class="text-xs text-gray-500 ml-3">( {{ $similarProduct->reviews->count() }} avis )</div>
                         </div>
                     </div>
                     <a href="{{ url('product/show', $similarProduct->id) }}"
@@ -172,6 +177,5 @@
                 </div>
             @endforeach
         </div>
-    </div>
-    <!-- ./related product -->
+    </div>               
 @endsection

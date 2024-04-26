@@ -5,7 +5,7 @@
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-9">
                 <div class="img-box">
-                    <img src="https://pagedone.io/asset/uploads/1702034769.png" alt="À propos de nous, page avec design tailwind"
+                    <img src="https://pagedone.io/asset/uploads/1702034769.png"
                         class="max-lg:mx-auto">
                 </div>
                 <div class="lg:pl-[100px] flex items-center">
@@ -27,7 +27,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 lg:gap-9">
                 <div class="lg:pr-24 flex items-center">
                     <div class="data w-full">
-                        <img src="https://pagedone.io/asset/uploads/1702034785.png" alt="Créatifs depuis 2005, page tailwind"
+                        <img src="https://pagedone.io/asset/uploads/1702034785.png"
                             class="block lg:hidden mb-9 mx-auto">
                         <h2 class="font-manrope font-bold text-4xl lg:text-5xl text-black mb-9 max-lg:text-center">Créatifs depuis 2005</h2>
                         <p class="font-normal text-xl leading-8 text-gray-500 max-lg:text-center max-w-2xl mx-auto">
@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="img-box">
-                    <img src="https://pagedone.io/asset/uploads/1702034785.png" alt="Créatifs depuis 2005, page tailwind"
+                    <img src="https://pagedone.io/asset/uploads/1702034785.png"
                         class="hidden lg:block">
                 </div>
             </div>

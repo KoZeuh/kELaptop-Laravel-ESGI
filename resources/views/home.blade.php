@@ -34,21 +34,21 @@
     <div class="container py-16">
         <div class="w-10/12 grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto justify-center">
             <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
-                <img src="images/icons/delivery-van.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <img src="images/icons/delivery-van.svg" class="w-12 h-12 object-contain">
                 <div>
                     <h4 class="font-medium capitalize text-lg">Livraison gratuite</h4>
                     <p class="text-gray-500 text-sm">Peu importe le montant !</p>
                 </div>
             </div>
             <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
-                <img src="images/icons/money-back.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <img src="images/icons/money-back.svg" class="w-12 h-12 object-contain">
                 <div>
                     <h4 class="font-medium capitalize text-lg">Retour possible</h4>
                     <p class="text-gray-500 text-sm">Jusqu'à 2 mois</p>
                 </div>
             </div>
             <div class="border border-primary rounded-sm px-3 py-6 flex justify-center items-center gap-5">
-                <img src="images/icons/service-hours.svg" alt="Delivery" class="w-12 h-12 object-contain">
+                <img src="images/icons/service-hours.svg" class="w-12 h-12 object-contain">
                 <div>
                     <h4 class="font-medium capitalize text-lg">24/7 Support</h4>
                     <p class="text-gray-500 text-sm">Toujours là pour vous..</p>
@@ -104,15 +104,18 @@
                         <div class="flex items-center">
                             <div class="flex gap-1 text-sm text-yellow-400">
                                 @php
-                                    $randomStarsInt = random_int(1, 5); 
-                                    $randomCountReviews = random_int(1, 100);
+                                    $avgRating = number_format($product->reviews()->avg('rating'), 1, '.', ',');
+
+                                    if ($avgRating == 0) {
+                                        $avgRating = 1;
+                                    }
                                 @endphp
 
-                                @for ($i = 0; $i < $randomStarsInt; $i++)
-                                    <span><i class="fa-solid fa-star"></i></span>
+                                @for ($i = 0; $i < intval($avgRating); $i++)
+                                    <span class="text-yellow-500"><i class="fa-solid fa-star"></i></span>
                                 @endfor
                             </div>
-                            <div class="text-xs text-gray-500 ml-3">( {{ $randomCountReviews }} avis )</div>
+                            <div class="text-xs text-gray-500 ml-3">( {{ $product->reviews->count() }} avis )</div>
                         </div>
                     </div>
                     <a href="{{ url('product/show', $product->id) }}" class="block w-full py-1 text-center text-white bg-primary border border-primary rounded-b hover:bg-transparent hover:text-primary transition">Ajouter au panier</a>

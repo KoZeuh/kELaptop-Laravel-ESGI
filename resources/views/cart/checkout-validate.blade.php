@@ -53,6 +53,11 @@
                     <div class="mb-5">
                         @php
                             $checkoutTotalAmount = $order->items->sum(function($item) { return $item->product->price * $item->quantity; });
+                            $amountDiscount = 0;
+
+                            if ($order->promoCode) {
+                                $amountDiscount = ($checkoutTotalAmount * $order->promoCode->discount / 100);
+                            }
                         @endphp
                         
                         <div class="mt-6 border-t border-b py-2">
@@ -65,11 +70,18 @@
                                 <p class="text-sm font-medium text-gray-900">Frais de livraison</p>
                                 <p class="font-semibold text-gray-900">$0.00</p>
                             </div>
+
+                            @if ($amountDiscount > 0)
+                                <div class="flex items-center justify-between">
+                                    <p class="text-sm font-medium text-gray-900">Réduction ({{$order->promoCode->discount}} %) (Code : <u>{{$order->promoCode->code}})</p>
+                                    <p class="font-semibold text-gray-900"></u>{{$amountDiscount}} $</p>
+                                </div>
+                            @endif
                         </div>
                         
                         <div class="mt-6 flex items-center justify-between">
                             <p class="text-sm font-medium text-gray-900">Total</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{$checkoutTotalAmount}} $</p>
+                            <p class="text-2xl font-semibold text-gray-900">{{$checkoutTotalAmount - $amountDiscount}} $</p>
                         </div>
                     </div>
                 </div>

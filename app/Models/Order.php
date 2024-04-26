@@ -18,7 +18,7 @@ class Order extends Model
      *
      * @var array<int, string>
     */
-    protected $fillable = ['user_id', 'status'];
+    protected $fillable = ['user_id', 'status', 'promo_code'];
 
     public function user()
     {
@@ -32,6 +32,7 @@ class Order extends Model
 
     public function promoCode()
     {
-        return $this->belongsTo(PromoCode::class);
+        return $this->belongsTo(PromoCode::class, 'promo_code', 'code');
     }
+    
 }

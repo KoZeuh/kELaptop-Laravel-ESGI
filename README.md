@@ -20,10 +20,10 @@ Page d'Accueil (1pts) :
 
 10. Validation du Panier (2pts):
 - Validation des informations de paiement avant de passer à la commande. ✅
-- Possibilité d'appliquer des codes de réduction ou des coupons. (EN COURS)
+- Possibilité d'appliquer des codes de réduction ou des coupons. ✅
 
-12. Page de Contact (1pt):
-- Formulaire de contact permettant aux utilisateurs de poser des questions ou de soumettre des commentaires. (EN COURS)
+12. Page de Contact (1pt): (CONFIGURATION DU .ENV NECESSAIRE)
+- Formulaire de contact permettant aux utilisateurs de poser des questions ou de soumettre des commentaires. ✅
 
 14. Espace Utilisateur (3pts):
 - Possibilité pour les utilisateurs de créer un compte et de se connecter. ✅
@@ -33,3 +33,10 @@ Page d'Accueil (1pts) :
 - Interface d'administration sécurisée avec authentification.
 - Possibilité de gérer les produits (ajouter, modifier, supprimer).
 - Vue d'ensemble des commandes passées avec la possibilité de les marquer comme traitées ou en attente.
+
+
+17. Supplémentaire (non demandé)
+
+- Connexion/Inscription avec Google
+- Template de réception d'un mail envoyé par le formulaire de contact
+- Note et commentaire possible sur chaque produit (uniquement les personnes l'ayant achetés et n'ayant pas posté d'avis sur ce produit peuvent le faire)

@@ -183,11 +183,11 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `image_products`
+-- Structure de la table `product_images`
 --
 
-DROP TABLE IF EXISTS `image_products`;
-CREATE TABLE IF NOT EXISTS `image_products` (
+DROP TABLE IF EXISTS `product_images`;
+CREATE TABLE IF NOT EXISTS `product_images` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `product_id` bigint UNSIGNED NOT NULL,
   `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.png',
@@ -195,14 +195,14 @@ CREATE TABLE IF NOT EXISTS `image_products` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `image_products_product_id_foreign` (`product_id`)
+  KEY `product_images_product_id_foreign` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `image_products`
+-- Déchargement des données de la table `product_images`
 --
 
-INSERT INTO `image_products` (`id`, `product_id`, `path`, `isPrimary`, `created_at`, `updated_at`) VALUES
+INSERT INTO `product_images` (`id`, `product_id`, `path`, `isPrimary`, `created_at`, `updated_at`) VALUES
 (1, 1, 'default.png', 1, NULL, NULL),
 (2, 2, 'default.png', 1, NULL, NULL),
 (3, 3, 'default.png', 1, NULL, NULL),
@@ -294,25 +294,13 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `user_id` bigint UNSIGNED NOT NULL,
   `promo_code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
+  `status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'PENDING',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orders_user_id_foreign` (`user_id`),
   KEY `orders_promo_code_foreign` (`promo_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `promo_code`, `status`, `created_at`, `updated_at`) VALUES
-(1, 4, NULL, 'PENDING', '2024-04-25 13:13:44', '2024-04-25 13:13:44'),
-(2, 4, NULL, 'PENDING', '2024-04-25 13:14:17', '2024-04-25 13:14:17'),
-(3, 4, NULL, 'PENDING', '2024-04-25 13:14:17', '2024-04-25 13:14:17'),
-(4, 4, NULL, 'PENDING', '2024-04-25 13:14:55', '2024-04-25 13:14:55'),
-(5, 4, NULL, 'PENDING', '2024-04-25 13:15:20', '2024-04-25 13:15:20'),
-(6, 4, NULL, 'PENDING', '2024-04-25 13:15:26', '2024-04-25 13:15:26');
 
 -- --------------------------------------------------------
 
@@ -332,13 +320,6 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   KEY `order_items_order_id_foreign` (`order_id`),
   KEY `order_items_product_id_foreign` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `order_items`
---
-
-INSERT INTO `order_items` (`id`, `quantity`, `order_id`, `product_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2024-04-25 13:13:44', '2024-04-25 13:13:44');
 
 --
 -- Déclencheurs `order_items`
@@ -429,7 +410,7 @@ DELIMITER ;
 DROP TRIGGER IF EXISTS `after_product_insert_default_image`;
 DELIMITER $$
 CREATE TRIGGER `after_product_insert_default_image` AFTER INSERT ON `products` FOR EACH ROW BEGIN
-    INSERT INTO image_products (product_id, path, isPrimary)
+    INSERT INTO product_images (product_id, path, isPrimary)
     VALUES (NEW.id, 'default.png', 1);
 END
 $$
@@ -445,7 +426,7 @@ DROP TABLE IF EXISTS `promo_codes`;
 CREATE TABLE IF NOT EXISTS `promo_codes` (
   `code` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `discount` decimal(8,2) NOT NULL,
-  `expiration` timestamp NOT NULL,
+  `expires_at` timestamp NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`code`)
@@ -522,12 +503,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
   `firstname` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `birthday` date NOT NULL,
-  `address` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `city` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `zip` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
+  `address` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `city` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `zip` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `role` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -545,6 +526,24 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `phone`, `birthday`, `address`, `city`, `zip`, `country`, `role`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (4, 'Admin', 'Admin', '0123456789', '2000-01-01', '1 Admin Street', 'Admin City', '12345', 'Admin Country', 'user', 'a@a.fr', NULL, '$2y$12$cvc44S6s0c8/GG5dQZaidu0ZCMOF13xtDEzREW1MNxIuZeKWQHrZ6', NULL, NULL, NULL);
+
+
+DROP TABLE IF EXISTS `product_reviews`;
+CREATE TABLE IF NOT EXISTS `product_reviews` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `rating` tinyint NOT NULL CHECK (rating >= 1 AND rating <= 5),
+  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_reviews_product_id_foreign` (`product_id`),
+  KEY `product_reviews_user_id_foreign` (`user_id`),
+  CONSTRAINT `fk_product_reviews_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_product_reviews_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 
 --
 -- Contraintes pour les tables déchargées
@@ -564,10 +563,10 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `image_products`
+-- Contraintes pour la table `product_images`
 --
-ALTER TABLE `image_products`
-  ADD CONSTRAINT `image_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `orders`

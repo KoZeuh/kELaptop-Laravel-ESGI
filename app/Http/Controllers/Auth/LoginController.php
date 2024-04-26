@@ -3,7 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -35,5 +42,39 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+
+    public function handleGoogleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+        $userData = $user->user;
+
+        if (!$userData['email_verified']) {
+            return redirect()->route('login')->with('error', 'Vous devez valider votre email pour vous connecter');
+        }
+
+        if (User::where('email', $userData['email'])->exists()) {
+            $user = User::where('email', $userData['email'])->first();
+        } else {
+            $user = User::create([
+                'firstname' => $userData['given_name'],
+                'lastname' => $userData['family_name'],
+                'email' => $userData['email'],
+                'password' => Hash::make(Str::random(24)),
+            ]);
+        }
+
+        if ($user instanceof User) {
+            Auth::login($user);
+
+            return redirect('/')->with('success', 'Vous vous êtes connecté avec succès');
+        }
+
+        return back()->with('error', 'Une erreur est survenue..');
     }
 }

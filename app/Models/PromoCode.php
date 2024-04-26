@@ -14,10 +14,15 @@ class PromoCode extends Model
      *
      * @var array<int, string>
     */
-    protected $fillable = ['code', 'discount', 'expiration'];
+    protected $fillable = ['code', 'discount', 'expires_at'];
 
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function isValid()
+    {
+        return $this->expires_at > now();
     }
 }
