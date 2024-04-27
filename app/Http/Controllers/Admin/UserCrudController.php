@@ -6,11 +6,7 @@ use App\Http\Requests\UserRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-/**
- * Class UserCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
+
 class UserCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -19,57 +15,56 @@ class UserCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
     public function setup()
     {
         CRUD::setModel(\App\Models\User::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/user');
-        CRUD::setEntityNameStrings('user', 'users');
+        CRUD::setEntityNameStrings('Utilisateur', 'Utilisateurs');
+
+        if (!backpack_user()->can('user.view')) {
+            abort(403, 'Vous n\'avez pas la permission d\'accéder à cette page !');
+        }
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
+
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        if (!backpack_user()->can('user.create')) {
+            CRUD::removeButton('create');
+        }
+
+        if (!backpack_user()->can('user.delete')) {
+            CRUD::removeButton('delete');
+        }
+
+        if (!backpack_user()->can('user.update')) {
+            CRUD::removeButton('update');
+        }
+
+        CRUD::column('phone')->label('Téléphone');
+        CRUD::column('birthday')->label('Date de naissance');
+        CRUD::column('address')->label('Adresse');
+        CRUD::column('city')->label('Ville');
+        CRUD::column('zip')->label('Code postal');
+        CRUD::column('country')->label('Pays');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
     protected function setupCreateOperation()
     {
         CRUD::setValidation(UserRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('phone')->label('Téléphone');
+        CRUD::field('birthday')->label('Date de naissance');
+        CRUD::field('address')->label('Adresse');
+        CRUD::field('city')->label('Ville');
+        CRUD::field('zip')->label('Code postal');
+        CRUD::field('country')->label('Pays');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
+
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

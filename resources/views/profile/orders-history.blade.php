@@ -8,7 +8,7 @@
     @include('partials.navbar_profile')
 
     <div class="col-span-9 shadow rounded px-6 pt-5 pb-7">
-        <h4 class="text-lg font-medium capitalize mb-4">Historique de mes commandes</h4>
+        <h4 class="text-lg font-medium mb-4">Historique de mes commandes</h4>
         <div class="mt-5">{{ $orders->links() }}</div>
             
         @foreach($orders as $order)
@@ -16,7 +16,7 @@
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200">
                     <div class="data">
                         <p class="font-semibold text-base leading-7 text-black">N° de commande: <span class="text-indigo-600 font-medium">#{{$order->id}}</span></p>
-                        <p class="font-semibold text-base leading-7 text-black mt-4">Statut de la commande: <span class="text-gray-400 font-medium">@if ($order->status == 'VALIDATED') <span class="text-green-400 font-medium">Commande validée</span> @else <span class="text-red-400 font-medium">En attente de confirmation du vendeur @endif</span></p>
+                        <p class="font-semibold text-base leading-7 text-black mt-4">Statut de la commande: <span class="text-gray-400 font-medium">@if ($order->status == 'COMPLETED') <span class="text-green-400 font-medium">Commande validée</span> @else <span class="text-red-400 font-medium">En attente de confirmation du vendeur @endif</span></p>
                         <p class="font-semibold text-base leading-7 text-black mt-4">Date de paiement : <span class="text-gray-400 font-medium">{{$order->created_at}}</span></p>
                     </div>
 
@@ -27,7 +27,7 @@
                     <div class="w-full px-3 min-[400px]:px-6">
                         <div class="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                             <div class="img-box">
-                                <img src="/images/products/{{$item->product->images->first()->path}}" class="h-20 w-20 transition-all duration-300 rounded-lg">
+                                <img src="{{ asset('storage/upload/images/' . $item->product->images->first()->path}}" class="h-20 w-20 transition-all duration-300 rounded-lg">
                             </div>
 
                             <div class="flex flex-row items-center w-full ">

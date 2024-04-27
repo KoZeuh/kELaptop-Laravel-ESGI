@@ -6,11 +6,6 @@ use App\Http\Requests\OrderItemRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-/**
- * Class OrderItemCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
 class OrderItemCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -19,57 +14,48 @@ class OrderItemCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
+
     public function setup()
     {
         CRUD::setModel(\App\Models\OrderItem::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/order-item');
-        CRUD::setEntityNameStrings('order item', 'order items');
+        CRUD::setEntityNameStrings('Détails Commande', 'Détails Commandes');
+
+        if (!backpack_user()->can('order.view')) {
+            abort(403, 'Vous n\'avez pas la permission d\'accéder à cette page !');
+        }
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
+
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        if (!backpack_user()->can('order.create')) {
+            CRUD::removeButton('create');
+        }
+
+        if (!backpack_user()->can('order.delete')) {
+            CRUD::removeButton('delete');
+        }
+
+        if (!backpack_user()->can('order.update')) {
+            CRUD::removeButton('update');
+        }
+
+        CRUD::column('product_id')->label('Product')->type('select')->entity('product')->attribute('name')->model('App\Models\Product');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
+
     protected function setupCreateOperation()
     {
         CRUD::setValidation(OrderItemRequest::class);
         CRUD::setFromDb(); // set fields from db columns.
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('product_id')->label('Product')->type('select')->entity('product')->attribute('name')->model('App\Models\Product');
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
+
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

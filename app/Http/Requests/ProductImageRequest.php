@@ -25,7 +25,8 @@ class ProductImageRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required|min:5|max:255'
+            'product_id' => 'required|exists:products,id',
+            'path' => 'required|image|max:10240', // 10MB max
         ];
     }
 

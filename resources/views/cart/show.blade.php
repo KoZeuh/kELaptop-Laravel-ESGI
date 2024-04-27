@@ -34,13 +34,13 @@
                     @else
                         @foreach($currentUser->cartItems as $item)
                             <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-                                <a href="/product/show/{{$item->product->id}}"><img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="/images/products/{{$item->product->images->first()->path}}"/></a>
+                                <a href="/product/show/{{$item->product->id}}"><img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="{{ asset('storage/upload/images/products/' . $item->product->images->first()->path) }}"/></a>
                                 
                                 <div class="flex w-full flex-col px-4 py-4">
                                     <span class="font-semibold">{{$item->product->name}} - <button type="button" onclick="window.location.href='/cart/remove/{{ $item->product->id }}'"><i class="fa-solid fa-trash text-red-500"></i></button></span> 
                                     <p class="text-lg font-bold">{{$item->product->price * $item->quantity}} $ ({{$item->product->price}} $/u)</p>
 
-                                    <form action="{{url('/cart/updateQty')}}" method="post">
+                                    <form action="{{route('cart.updateQuantity')}}" method="post">
                                         @csrf
 
                                         <input type="hidden" name="product_id" value="{{$item->product->id}}">
@@ -94,7 +94,7 @@
                         </label>
                     </div>
 
-                    <form action="{{url('/cart/checkCoupon')}}" method="POST">
+                    <form action="{{route('cart.checkCoupon')}}" method="POST">
                         @csrf
 
                         <p class="mt-8 text-lg font-medium">Code promo</p>
@@ -106,7 +106,7 @@
                 @endif
             </div>
 
-            <form action="{{url('/checkout-validate')}}" method="POST">
+            <form action="{{route('checkout.validate')}}" method="POST">
                 @csrf
                 
                 <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">

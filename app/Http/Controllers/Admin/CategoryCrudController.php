@@ -6,11 +6,7 @@ use App\Http\Requests\CategoryRequest;
 use Backpack\CRUD\app\Http\Controllers\CrudController;
 use Backpack\CRUD\app\Library\CrudPanel\CrudPanelFacade as CRUD;
 
-/**
- * Class CategoryCrudController
- * @package App\Http\Controllers\Admin
- * @property-read \Backpack\CRUD\app\Library\CrudPanel\CrudPanel $crud
- */
+
 class CategoryCrudController extends CrudController
 {
     use \Backpack\CRUD\app\Http\Controllers\Operations\ListOperation;
@@ -19,57 +15,47 @@ class CategoryCrudController extends CrudController
     use \Backpack\CRUD\app\Http\Controllers\Operations\DeleteOperation;
     use \Backpack\CRUD\app\Http\Controllers\Operations\ShowOperation;
 
-    /**
-     * Configure the CrudPanel object. Apply settings to all operations.
-     * 
-     * @return void
-     */
+
     public function setup()
     {
         CRUD::setModel(\App\Models\Category::class);
         CRUD::setRoute(config('backpack.base.route_prefix') . '/category');
-        CRUD::setEntityNameStrings('category', 'categories');
+        CRUD::setEntityNameStrings('Catégorie', 'Catégories');
+
+        if (!backpack_user()->can('category.view')) {
+            abort(403, 'Vous n\'avez pas la permission d\'accéder à cette page !');
+        }
     }
 
-    /**
-     * Define what happens when the List operation is loaded.
-     * 
-     * @see  https://backpackforlaravel.com/docs/crud-operation-list-entries
-     * @return void
-     */
+
     protected function setupListOperation()
     {
         CRUD::setFromDb(); // set columns from db columns.
 
-        /**
-         * Columns can be defined using the fluent syntax:
-         * - CRUD::column('price')->type('number');
-         */
+        if (!backpack_user()->can('category.create')) {
+            CRUD::removeButton('create');
+        }
+
+        if (!backpack_user()->can('category.delete')) {
+            CRUD::removeButton('delete');
+        }
+
+        if (!backpack_user()->can('category.update')) {
+            CRUD::removeButton('update');
+        }
+
+        CRUD::removeColumn('path_banner');
     }
 
-    /**
-     * Define what happens when the Create operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-create
-     * @return void
-     */
+
     protected function setupCreateOperation()
     {
         CRUD::setValidation(CategoryRequest::class);
-        CRUD::setFromDb(); // set fields from db columns.
+        CRUD::setFromDb();
 
-        /**
-         * Fields can be defined using the fluent syntax:
-         * - CRUD::field('price')->type('number');
-         */
+        CRUD::field('path_banner')->type('upload')->disk('public')->upload(true);
     }
 
-    /**
-     * Define what happens when the Update operation is loaded.
-     * 
-     * @see https://backpackforlaravel.com/docs/crud-operation-update
-     * @return void
-     */
     protected function setupUpdateOperation()
     {
         $this->setupCreateOperation();

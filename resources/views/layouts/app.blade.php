@@ -30,15 +30,11 @@
             @include('partials.navbar')
             @include('partials.errors')
 
-            <main class="py-4">
+            <main class="py-4 bg-gray-800">
                 @yield('content')
             </main>
 
             @include('partials.footer')
         </div>
-
-        @if ($currentPath === 'product/list')
-            @vite(['resources/js/product_filter.js'])
-        @endif
     </body>
 </html>

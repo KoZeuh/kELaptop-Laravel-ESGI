@@ -12,6 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Set the default string length for migrations
         Schema::defaultStringLength(191);
     }
 

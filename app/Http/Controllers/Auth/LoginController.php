@@ -66,7 +66,10 @@ class LoginController extends Controller
                 'lastname' => $userData['family_name'],
                 'email' => $userData['email'],
                 'password' => Hash::make(Str::random(24)),
+                'created_with_google' => true,
             ]);
+
+            $user->assignRole('user');
         }
 
         if ($user instanceof User) {

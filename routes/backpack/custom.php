@@ -17,7 +17,6 @@ Route::group([
     'namespace' => 'App\Http\Controllers\Admin',
 ], function () { // custom admin routes
     Route::crud('brand', 'BrandCrudController');
-    Route::crud('cart', 'CartCrudController');
     Route::crud('category', 'CategoryCrudController');
     Route::crud('order', 'OrderCrudController');
     Route::crud('order-item', 'OrderItemCrudController');

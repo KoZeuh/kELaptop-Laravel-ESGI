@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 25 avr. 2024 à 15:16
--- Version du serveur : 8.0.31
--- Version de PHP : 8.2.0
+-- Généré le : sam. 27 avr. 2024 à 15:09
+-- Version du serveur : 8.2.0
+-- Version de PHP : 8.3.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `kfruitables`
+-- Base de données : `kelaptop`
 --
 
 -- --------------------------------------------------------
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `brands` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `brands`
@@ -50,10 +50,6 @@ INSERT INTO `brands` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (7, 'Realme', NULL, NULL),
 (8, 'OnePlus', NULL, NULL),
 (9, 'Google', NULL, NULL),
-(10, 'Sony', NULL, NULL),
-(11, 'LG', NULL, NULL),
-(12, 'Motorola', NULL, NULL),
-(13, 'Nokia', NULL, NULL),
 (14, 'Asus', NULL, NULL),
 (15, 'Acer', NULL, NULL),
 (16, 'HP', NULL, NULL),
@@ -61,16 +57,6 @@ INSERT INTO `brands` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (18, 'Lenovo', NULL, NULL),
 (19, 'MSI', NULL, NULL),
 (20, 'Alienware', NULL, NULL),
-(21, 'Razer', NULL, NULL),
-(22, 'Corsair', NULL, NULL),
-(23, 'Logitech', NULL, NULL),
-(24, 'SteelSeries', NULL, NULL),
-(25, 'HyperX', NULL, NULL),
-(26, 'Kingston', NULL, NULL),
-(27, 'Western Digital', NULL, NULL),
-(28, 'Seagate', NULL, NULL),
-(29, 'SanDisk', NULL, NULL),
-(30, 'Crucial', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -85,14 +71,6 @@ CREATE TABLE IF NOT EXISTS `cache` (
   `expiration` int NOT NULL,
   PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `cache`
---
-
-INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('kozeuhdev@gmail.com|127.0.0.1', 'i:2;', 1713967844),
-('kozeuhdev@gmail.com|127.0.0.1:timer', 'i:1713967844;', 1713967844);
 
 -- --------------------------------------------------------
 
@@ -125,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `carts` (
   PRIMARY KEY (`id`),
   KEY `carts_user_id_foreign` (`user_id`),
   KEY `carts_product_id_foreign` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -183,42 +161,6 @@ CREATE TABLE IF NOT EXISTS `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `product_images`
---
-
-DROP TABLE IF EXISTS `product_images`;
-CREATE TABLE IF NOT EXISTS `product_images` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `product_id` bigint UNSIGNED NOT NULL,
-  `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.png',
-  `isPrimary` tinyint(1) NOT NULL DEFAULT '0',
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_images_product_id_foreign` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `product_images`
---
-
-INSERT INTO `product_images` (`id`, `product_id`, `path`, `isPrimary`, `created_at`, `updated_at`) VALUES
-(1, 1, 'default.png', 1, NULL, NULL),
-(2, 2, 'default.png', 1, NULL, NULL),
-(3, 3, 'default.png', 1, NULL, NULL),
-(4, 4, 'default.png', 1, NULL, NULL),
-(5, 5, 'default.png', 1, NULL, NULL),
-(6, 6, 'default.png', 1, NULL, NULL),
-(7, 7, 'default.png', 1, NULL, NULL),
-(8, 8, 'default.png', 1, NULL, NULL),
-(9, 9, 'default.png', 1, NULL, NULL),
-(10, 10, 'default.png', 1, NULL, NULL),
-(11, 11, 'default.png', 1, NULL, NULL),
-(12, 12, 'default.png', 1, NULL, NULL);
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `jobs`
 --
 
@@ -268,20 +210,37 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
 
 --
--- Déchargement des données de la table `migrations`
+-- Structure de la table `model_has_permissions`
 --
 
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '0001_01_01_000000_create_users_table', 1),
-(2, '0001_01_01_000001_create_cache_table', 1),
-(3, '0001_01_01_000002_create_jobs_table', 1),
-(4, '0001_01_01_000003_create_categories', 1),
-(5, '0001_01_01_000004_create_products', 1),
-(6, '0001_01_01_000005_create_orders', 1),
-(7, '0001_01_01_000006_create_order_items', 1);
+DROP TABLE IF EXISTS `model_has_permissions`;
+CREATE TABLE IF NOT EXISTS `model_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`model_id`,`model_type`),
+  KEY `model_has_permissions_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `model_has_roles`
+--
+
+DROP TABLE IF EXISTS `model_has_roles`;
+CREATE TABLE IF NOT EXISTS `model_has_roles` (
+  `role_id` bigint UNSIGNED NOT NULL,
+  `model_type` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `model_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`role_id`,`model_id`,`model_type`),
+  KEY `model_has_roles_model_id_model_type_index` (`model_id`,`model_type`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -300,7 +259,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   PRIMARY KEY (`id`),
   KEY `orders_user_id_foreign` (`user_id`),
   KEY `orders_promo_code_foreign` (`promo_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -319,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `order_items` (
   PRIMARY KEY (`id`),
   KEY `order_items_order_id_foreign` (`order_id`),
   KEY `order_items_product_id_foreign` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déclencheurs `order_items`
@@ -329,7 +288,7 @@ DELIMITER $$
 CREATE TRIGGER `after_order_item_delete` AFTER DELETE ON `order_items` FOR EACH ROW BEGIN
     UPDATE stocks
     SET quantity = quantity + OLD.quantity
-    WHERE id = OLD.product_id;
+    WHERE product_id = OLD.product_id;
 END
 $$
 DELIMITER ;
@@ -338,7 +297,7 @@ DELIMITER $$
 CREATE TRIGGER `after_order_item_insert` AFTER INSERT ON `order_items` FOR EACH ROW BEGIN
     UPDATE stocks
     SET quantity = quantity - NEW.quantity
-    WHERE id = NEW.product_id;
+    WHERE product_id = NEW.product_id;
 END
 $$
 DELIMITER ;
@@ -360,6 +319,23 @@ CREATE TABLE IF NOT EXISTS `password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `permissions`
+--
+
+DROP TABLE IF EXISTS `permissions`;
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `products`
 --
 
@@ -371,30 +347,28 @@ CREATE TABLE IF NOT EXISTS `products` (
   `name` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
   `price` decimal(8,2) NOT NULL,
+  `details` json DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `products_category_id_foreign` (`category_id`),
   KEY `products_brand_id_foreign` (`brand_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `products`
 --
 
-INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, `price`, `created_at`, `updated_at`) VALUES
-(1, 8, 1, 'iPhone 12', NULL, '909.00', NULL, NULL),
-(2, 8, 2, 'Galaxy S21', NULL, '849.00', NULL, NULL),
-(3, 8, 3, 'Mate 40 Pro', NULL, '899.00', NULL, NULL),
-(4, 8, 4, 'Mi 11', NULL, '749.00', NULL, NULL),
-(5, 8, 5, 'Find X3 Pro', NULL, '1149.00', NULL, NULL),
-(6, 8, 6, 'X60 Pro', NULL, '799.00', NULL, NULL),
-(7, 8, 7, 'Realme GT', NULL, '599.00', NULL, NULL),
-(8, 8, 8, 'OnePlus 9 Pro', NULL, '969.00', NULL, NULL),
-(9, 8, 9, 'Pixel 5', NULL, '699.00', NULL, NULL),
-(10, 8, 10, 'Xperia 1 III', NULL, '1299.00', NULL, NULL),
-(11, 8, 11, 'LG Wing', NULL, '999.00', NULL, NULL),
-(12, 8, 12, 'Moto G100', NULL, '499.00', NULL, NULL);
+INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, `price`, `details`, `created_at`, `updated_at`) VALUES
+(1, 8, 1, 'iPhone 8', NULL, 1267.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(3, 8, 1, 'iPhone 10', NULL, 1338.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(4, 8, 1, 'iPhone 11', NULL, 964.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(5, 8, 1, 'iPhone 12', NULL, 1257.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(6, 8, 1, 'iPhone 13', NULL, 1366.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(7, 8, 1, 'iPhone 14', NULL, 798.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(8, 8, 1, 'iPhone 15', NULL, 908.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
+(9, 8, 2, 'Galaxy S21', NULL, 1258.00, '{\"camera\": \"Quad 108 MP\", \"battery\": \"5000 mAh\", \"display\": \"Dynamic AMOLED 2X\", \"processor\": \"Exynos 2100\"}', NULL, '2024-04-27 15:02:23'),
+(10, 8, 2, 'Galaxy S20', NULL, 1326.00, '{\"camera\": \"Quad 108 MP\", \"battery\": \"5000 mAh\", \"display\": \"Dynamic AMOLED 2X\", \"processor\": \"Exynos 2100\"}', NULL, NULL);
 
 --
 -- Déclencheurs `products`
@@ -402,8 +376,8 @@ INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, 
 DROP TRIGGER IF EXISTS `after_product_insert`;
 DELIMITER $$
 CREATE TRIGGER `after_product_insert` AFTER INSERT ON `products` FOR EACH ROW BEGIN
-    INSERT INTO stocks (id, quantity)
-    VALUES (NEW.id, 0);  -- Mettre ici la quantité initiale souhaitée
+    INSERT INTO stocks (product_id, quantity)
+    VALUES (NEW.id, 0);
 END
 $$
 DELIMITER ;
@@ -419,6 +393,74 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `product_images`
+--
+
+DROP TABLE IF EXISTS `product_images`;
+CREATE TABLE IF NOT EXISTS `product_images` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `path` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'default.png',
+  `isPrimary` tinyint(1) NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_images_product_id_foreign` (`product_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `product_images`
+--
+
+INSERT INTO `product_images` (`id`, `product_id`, `path`, `isPrimary`, `created_at`, `updated_at`) VALUES
+(1, 1, 'iphone-8.jpg', 1, NULL, NULL),
+(4, 4, 'iphone 11-nZTNe.jpg', 1, NULL, '2024-04-27 14:52:17'),
+(5, 5, 'iphone 12-yfZf3.jpg', 1, NULL, '2024-04-27 14:59:25'),
+(6, 6, 'iphone 13-k2lve.jpg', 1, NULL, '2024-04-27 14:59:54'),
+(7, 7, 'iphone 14-YEgmw.jpg', 1, NULL, '2024-04-27 15:00:18'),
+(8, 8, 'iphone 15-8rwB7.jpg', 1, NULL, '2024-04-27 15:00:42'),
+(9, 9, 'galaxy s21-9bS6q.jpg', 1, NULL, '2024-04-27 15:04:05'),
+(10, 10, 'galaxy s20-vOMd2.jpg', 1, NULL, '2024-04-27 15:03:54'),
+(22, 1, 'iphone 8-bQ8Sf.jpg', 0, '2024-04-27 14:43:02', '2024-04-27 14:43:02'),
+(23, 1, 'iphone 8-Q8soS.jpg', 0, '2024-04-27 14:44:14', '2024-04-27 14:44:14'),
+(24, 1, 'iphone 8-Ch5m8.jpg', 0, '2024-04-27 14:44:21', '2024-04-27 14:44:21'),
+(29, 3, 'iphone 10-Kr55i.jpg', 1, '2024-04-27 14:50:08', '2024-04-27 14:50:08'),
+(30, 3, 'iphone 10-TjPxR.jpg', 0, '2024-04-27 14:50:14', '2024-04-27 14:50:14'),
+(31, 3, 'iphone 10-uhZD5.jpg', 0, '2024-04-27 14:50:18', '2024-04-27 14:50:18'),
+(32, 4, 'iphone 11-SZ0Su.jpg', 0, '2024-04-27 14:52:23', '2024-04-27 14:52:23'),
+(33, 4, 'iphone 11-clqIm.jpg', 0, '2024-04-27 14:52:27', '2024-04-27 14:52:27'),
+(34, 5, 'iphone 12-R6YeW.jpg', 0, '2024-04-27 14:59:32', '2024-04-27 14:59:32'),
+(35, 5, 'iphone 12-PSTG2.jpg', 0, '2024-04-27 14:59:38', '2024-04-27 14:59:38'),
+(36, 6, 'iphone 13-JvqaF.jpg', 0, '2024-04-27 15:00:01', '2024-04-27 15:00:01'),
+(37, 7, 'iphone 14-VGu2g.jpg', 0, '2024-04-27 15:00:27', '2024-04-27 15:00:27'),
+(38, 8, 'iphone 15-VHBSH.jpg', 0, '2024-04-27 15:00:49', '2024-04-27 15:00:49'),
+(39, 8, 'iphone 15-YL1nQ.jpg', 0, '2024-04-27 15:00:55', '2024-04-27 15:00:55'),
+(40, 9, 'galaxy s21-ipByX.jpg', 0, '2024-04-27 15:04:12', '2024-04-27 15:04:12'),
+(41, 9, 'galaxy s21-hZYpd.jpg', 0, '2024-04-27 15:04:19', '2024-04-27 15:04:19');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `product_reviews`
+--
+
+DROP TABLE IF EXISTS `product_reviews`;
+CREATE TABLE IF NOT EXISTS `product_reviews` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `product_id` bigint UNSIGNED NOT NULL,
+  `user_id` bigint UNSIGNED NOT NULL,
+  `rating` tinyint NOT NULL,
+  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_reviews_product_id_foreign` (`product_id`),
+  KEY `product_reviews_user_id_foreign` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `promo_codes`
 --
 
@@ -430,6 +472,37 @@ CREATE TABLE IF NOT EXISTS `promo_codes` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `roles`
+--
+
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE IF NOT EXISTS `roles` (
+  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `guard_name` varchar(125) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `roles_name_guard_name_unique` (`name`,`guard_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `role_has_permissions`
+--
+
+DROP TABLE IF EXISTS `role_has_permissions`;
+CREATE TABLE IF NOT EXISTS `role_has_permissions` (
+  `permission_id` bigint UNSIGNED NOT NULL,
+  `role_id` bigint UNSIGNED NOT NULL,
+  PRIMARY KEY (`permission_id`,`role_id`),
+  KEY `role_has_permissions_role_id_foreign` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -451,13 +524,6 @@ CREATE TABLE IF NOT EXISTS `sessions` (
   KEY `sessions_last_activity_index` (`last_activity`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `sessions`
---
-
-INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('763l5mDTCiEdcBYflEUIVQwaLVylbW4JIlww5Nbt', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 OPR/106.0.0.0', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiU1FTOHQ3MmtSbW9aYjUzSjVaOENNZ21NVXhad0xmVkdOMWFOb2l2WSI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjQ0OiJodHRwOi8vbG9jYWxob3N0OjgwMDAvcHJvZmlsZS9vcmRlcnMtaGlzdG9yeSI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjQ7czo0OiJhdXRoIjthOjE6e3M6MjE6InBhc3N3b3JkX2NvbmZpcm1lZF9hdCI7aToxNzE0MDU4MDAzO319', 1714058134);
-
 -- --------------------------------------------------------
 
 --
@@ -466,21 +532,20 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 DROP TABLE IF EXISTS `stocks`;
 CREATE TABLE IF NOT EXISTS `stocks` (
-  `id` bigint UNSIGNED NOT NULL,
+  `product_id` bigint UNSIGNED NOT NULL,
   `quantity` int NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `stocks_product_id_foreign` (`id`)
+  PRIMARY KEY (`product_id`),
+  KEY `stocks_product_id_foreign` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `stocks`
 --
 
-INSERT INTO `stocks` (`id`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 1, NULL, NULL),
-(2, 0, NULL, NULL),
+INSERT INTO `stocks` (`product_id`, `quantity`, `created_at`, `updated_at`) VALUES
+(1, 0, NULL, NULL),
 (3, 0, NULL, NULL),
 (4, 0, NULL, NULL),
 (5, 0, NULL, NULL),
@@ -488,9 +553,7 @@ INSERT INTO `stocks` (`id`, `quantity`, `created_at`, `updated_at`) VALUES
 (7, 0, NULL, NULL),
 (8, 0, NULL, NULL),
 (9, 0, NULL, NULL),
-(10, 0, NULL, NULL),
-(11, 0, NULL, NULL),
-(12, 0, NULL, NULL);
+(10, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -509,7 +572,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `zip` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `country` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
   `email` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -518,33 +580,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `users`
---
-
-INSERT INTO `users` (`id`, `firstname`, `lastname`, `phone`, `birthday`, `address`, `city`, `zip`, `country`, `role`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(4, 'Admin', 'Admin', '0123456789', '2000-01-01', '1 Admin Street', 'Admin City', '12345', 'Admin Country', 'user', 'a@a.fr', NULL, '$2y$12$cvc44S6s0c8/GG5dQZaidu0ZCMOF13xtDEzREW1MNxIuZeKWQHrZ6', NULL, NULL, NULL);
-
-
-DROP TABLE IF EXISTS `product_reviews`;
-CREATE TABLE IF NOT EXISTS `product_reviews` (
-  `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
-  `product_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
-  `rating` tinyint NOT NULL CHECK (rating >= 1 AND rating <= 5),
-  `review` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `product_reviews_product_id_foreign` (`product_id`),
-  KEY `product_reviews_user_id_foreign` (`user_id`),
-  CONSTRAINT `fk_product_reviews_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `fk_product_reviews_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
-
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 --
 -- Contraintes pour les tables déchargées
 --
@@ -563,10 +599,16 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_parent_id_foreign` FOREIGN KEY (`parent_id`) REFERENCES `categories` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `product_images`
+-- Contraintes pour la table `model_has_permissions`
 --
-ALTER TABLE `product_images`
-  ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `model_has_permissions`
+  ADD CONSTRAINT `fk_model_has_permissions_permissions` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE;
+
+--
+-- Contraintes pour la table `model_has_roles`
+--
+ALTER TABLE `model_has_roles`
+  ADD CONSTRAINT `fk_model_has_roles_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
 
 --
 -- Contraintes pour la table `orders`
@@ -590,6 +632,19 @@ ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE;
 
 --
+-- Contraintes pour la table `product_images`
+--
+ALTER TABLE `product_images`
+  ADD CONSTRAINT `product_images_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `role_has_permissions`
+--
+ALTER TABLE `role_has_permissions`
+  ADD CONSTRAINT `fk_role_has_permissions_permissions` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_role_has_permissions_roles` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE;
+
+--
 -- Contraintes pour la table `sessions`
 --
 ALTER TABLE `sessions`
@@ -599,7 +654,7 @@ ALTER TABLE `sessions`
 -- Contraintes pour la table `stocks`
 --
 ALTER TABLE `stocks`
-  ADD CONSTRAINT `stocks_product_id_foreign` FOREIGN KEY (`id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `stocks_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

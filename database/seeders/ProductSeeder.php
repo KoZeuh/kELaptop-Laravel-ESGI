@@ -15,89 +15,49 @@ class ProductSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        DB::table('products')->insert([
-            'name' => 'iPhone 12',
-            'brand_id' => Brand::where('name', 'Apple')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 909
-        ]);
+    {        
+        $smartphoneCategoryId = Category::where('name', 'Smartphones')->first()->id;
 
-        DB::table('products')->insert([
-            'name' => 'Galaxy S21',
-            'brand_id' => Brand::where('name', 'Samsung')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 849
-        ]);
+        $appleBrandId = Brand::where('name', 'Apple')->first()->id;
 
-        DB::table('products')->insert([
-            'name' => 'Mate 40 Pro',
-            'brand_id' => Brand::where('name', 'Huawei')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 899
-        ]);
+        for ($i = 8; $i < 16; $i++) {
+            if ($i === 9) {
+                continue;
+            }
 
-        DB::table('products')->insert([
-            'name' => 'Mi 11',
-            'brand_id' => Brand::where('name', 'Xiaomi')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 749
-        ]);
+            $productId = DB::table('products')->insertGetId([
+                'name' => 'iPhone ' . $i,
+                'brand_id' => $appleBrandId,
+                'category_id' => $smartphoneCategoryId,
+                'price' => random_int(699, 1499),
+                'details' => json_encode([
+                    'display' => 'Super Retina XDR',
+                    'processor' => 'A14 Bionic',
+                    'camera' => 'Triple 12 MP',
+                    'battery' => '3687 mAh'
+                ])
+            ]);
 
-        DB::table('products')->insert([
-            'name' => 'Find X3 Pro',
-            'brand_id' => Brand::where('name', 'Oppo')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 1149
-        ]);
+            DB::table('product_images')->where('product_id', $productId)->where('isPrimary', true)->update(['path' => 'iphone-' . $i . '.jpg']);
+        }
 
-        DB::table('products')->insert([
-            'name' => 'X60 Pro',
-            'brand_id' => Brand::where('name', 'Vivo')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 799
-        ]);
+        $samsungBrandId = Brand::where('name', 'Samsung')->first()->id;
+        
+        for ($i = 20; $i < 22; $i++) {
+            $productId = DB::table('products')->insertGetId([
+                'name' => 'Galaxy S' . $i,
+                'brand_id' => $samsungBrandId,
+                'category_id' => $smartphoneCategoryId,
+                'price' => random_int(699, 1499),
+                'details' => json_encode([
+                    'display' => 'Dynamic AMOLED 2X',
+                    'processor' => 'Exynos 2100',
+                    'camera' => 'Quad 108 MP',
+                    'battery' => '5000 mAh'
+                ])
+            ]);
 
-        DB::table('products')->insert([
-            'name' => 'Realme GT',
-            'brand_id' => Brand::where('name', 'Realme')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 599
-        ]);
-
-        DB::table('products')->insert([
-            'name' => 'OnePlus 9 Pro',
-            'brand_id' => Brand::where('name', 'OnePlus')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 969
-        ]);
-
-        DB::table('products')->insert([
-            'name' => 'Pixel 5',
-            'brand_id' => Brand::where('name', 'Google')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 699
-        ]);
-
-        DB::table('products')->insert([
-            'name' => 'Xperia 1 III',
-            'brand_id' => Brand::where('name', 'Sony')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 1299
-        ]);
-
-        DB::table('products')->insert([
-            'name' => 'LG Wing',
-            'brand_id' => Brand::where('name', 'LG')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 999
-        ]);
-
-        DB::table('products')->insert([
-            'name' => 'Moto G100',
-            'brand_id' => Brand::where('name', 'Motorola')->first()->id,
-            'category_id' => Category::where('name', 'Smartphones')->first()->id,
-            'price' => 499
-        ]);
+            DB::table('product_images')->where('product_id', $productId)->where('isPrimary', true)->update(['path' => 'galaxy-s' . $i . '.jpg']);
+        }
     }
 }

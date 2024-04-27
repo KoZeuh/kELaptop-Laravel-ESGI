@@ -10,7 +10,7 @@
     <div class="col-span-9 shadow rounded px-6 pt-5 pb-7">
         <h4 class="text-lg font-medium capitalize mb-4">Informations personnelles</h4>
 
-        <form action="{{url('/profile/save')}}" method="POST">
+        <form action="{{route('profile.save')}}" method="POST">
             @csrf
 
             <div class="space-y-4">

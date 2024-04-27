@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
-    public function list()
+    public function showProducts()
     {
         $categories = Category::all();
         $products = Product::paginate(9);
@@ -24,7 +24,7 @@ class ProductController extends Controller
         return view('product.list', compact('products', 'categories', 'brands'));
     }
 
-    public function show($id)
+    public function showProduct($id)
     {
         $categories = Category::all();
         $product = Product::find($id);

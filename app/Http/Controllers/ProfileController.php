@@ -17,7 +17,7 @@ class ProfileController extends Controller
     }
 
 
-    public function index()
+    public function showIndex()
     {
         return view('profile.index');
     }
@@ -40,7 +40,7 @@ class ProfileController extends Controller
         return redirect('/profile')->with('success', 'Votre profil a été mis à jour');
     }
 
-    public function ordersHistory()
+    public function showOrdersHistory()
     {
         $orders = Order::where('user_id', auth()->user()->id)->paginate(2);
 

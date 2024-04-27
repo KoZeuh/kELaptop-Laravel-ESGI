@@ -1,6 +1,6 @@
-<header class="py-4 shadow-sm bg-white">
+<header class="py-4 shadow-sm bg-gray-400">
     <div class="container flex items-center justify-between">
-        <a href="{{url('/')}}">
+        <a href="{{route('home')}}">
             <img src="/images/logo.svg" class="w-32">
         </a>
 
@@ -14,7 +14,7 @@
             </div>
 
             <div class="flex items-center space-x-4">
-                <a href="{{url('/cart')}}" class="text-center text-gray-700 hover:text-primary transition relative">
+                <a href="{{route('cart.show')}}" class="text-center text-gray-700 hover:text-primary transition relative">
                     <div class="text-2xl">
                         <i class="fa-solid fa-bag-shopping"></i>
                     </div>
@@ -24,7 +24,7 @@
                 </a>
 
                 @auth
-                    <a href="{{url('/profile')}}" class="text-center text-gray-700 hover:text-primary transition relative">
+                    <a href="{{route('profile.index')}}" class="text-center text-gray-700 hover:text-primary transition relative">
                         <div class="text-2xl">
                             <i class="fa-regular fa-user"></i>
                         </div>
@@ -46,19 +46,21 @@
     </div>
 </header>
 
-<nav class="bg-gray-800">
+<nav class="bg-gray-600">
     <div class="container flex">
         <div class="flex items-center justify-between flex-grow md:pl-12 py-5">
             <div class="flex items-center space-x-6">
-                <a href="{{url('/')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
-                <a href="{{url('product/list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
-                <a href="{{url('aboutus')}}" class="text-gray-200 hover:text-white transition">A propos de nous</a>
-                <a href="{{url('contact')}}" class="text-gray-200 hover:text-white transition">Nous contacter</a>
+                <a href="{{route('home')}}" class="text-gray-200 hover:text-white transition">Accueil</a>
+                <a href="{{route('product.list')}}" class="text-gray-200 hover:text-white transition">Liste des produits</a>
+                <a href="{{route('home.about_us')}}" class="text-gray-200 hover:text-white transition">A propos de nous</a>
+                <a href="{{route('home.contact_us')}}" class="text-gray-200 hover:text-white transition">Nous contacter</a>
             </div>
 
             @auth
-                <a href="{{url('/admin')}}" class="text-gray-200 hover:text-white transition">Administration</a>
-            @elseauth
+                @hasanyrole(['seller', 'admin'])
+                    <a href="{{url('/admin')}}" class="text-gray-200 hover:text-white transition">Administration</a>
+                @endhasanyrole
+            @else
                 <a href="{{route('login')}}" class="text-gray-200 hover:text-white transition">Se connecter/S'inscrire</a>
             @endguest
         </div>

@@ -10,7 +10,7 @@ use App\Models\PromoCode;
 
 class CartController extends Controller
 {
-    public function addToCart(Request $request)
+    public function addOrUpdate(Request $request)
     {
         $cartItem = Cart::updateOrCreate(
             [
@@ -25,7 +25,7 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Produit ajouté au panier');
     }
 
-    public function removeFromCart($productId)
+    public function remove($productId)
     {
         Cart::where('user_id', auth()->user()->id)
             ->where('product_id', $productId)
@@ -34,7 +34,7 @@ class CartController extends Controller
         return redirect()->back();
     }
 
-    public function updateQty(Request $request)
+    public function updateQuantity(Request $request)
     {
         if ($request->quantity <= 0) {
             Cart::where('user_id', auth()->user()->id)

@@ -11,7 +11,7 @@
         <div class="p-6 pt-0 text-center">
             <h6 class="text-lg font-medium mb-4">Laisser un avis sur : <span class="text-primary">{{$product->name}}</span></h6>
 
-            <form action="{{ url('product/review') }}" method="POST">
+            <form action="{{ route('product.postReview') }}" method="POST">
                 @csrf
 
                 <input type="hidden" name="product_id" value="{{$product->id}}">

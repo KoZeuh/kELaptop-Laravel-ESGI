@@ -38,7 +38,7 @@
             <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
                 @foreach($order->items as $item)
                     <div class="flex flex-col rounded-lg bg-white sm:flex-row">
-                        <img class="m-2 h-24 w-28 rounded-md border object-cover object-center" src="/images/products/{{$item->product->images->first()->path}}"/>
+                        <img class="m-2 h-24 w-28 rounded-md border object-cover object-center"  src="{{ asset('storage/upload/images/products/' . $item->product->images->first()->path) }}"/>
                             <div class="flex w-full flex-col px-4 py-4">
                                 <span class="font-semibold">{{$item->product->name}} - x {{$item->quantity}}</span>
                                 <p class="text-lg font-bold">{{$item->product->price * $item->quantity}} $ ({{$item->product->price}} $/u)</p>

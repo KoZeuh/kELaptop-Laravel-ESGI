@@ -30,9 +30,9 @@ Page d'Accueil (1pts) :
 - Historique des commandes passées avec les détails de chaque commande. ✅
 
 16. Accès Administration (4pts):
-- Interface d'administration sécurisée avec authentification.
-- Possibilité de gérer les produits (ajouter, modifier, supprimer).
-- Vue d'ensemble des commandes passées avec la possibilité de les marquer comme traitées ou en attente.
+- Interface d'administration sécurisée avec authentification. ✅
+- Possibilité de gérer les produits (ajouter, modifier, supprimer). ✅
+- Vue d'ensemble des commandes passées avec la possibilité de les marquer comme traitées ou en attente. (Ajout de filtre)
 
 
 17. Supplémentaire (non demandé)

@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function showIndex()
     {
         $categories = Category::all();
         $products = Product::inRandomOrder()->limit(8)->get();
@@ -19,24 +19,24 @@ class HomeController extends Controller
         return view('home', compact('categories', 'products'));
     }
 
-    public function aboutUs()
+    public function showAboutUs()
     {
         return view('about_us');
     }
 
-    public function contactUs()
+    public function showContactUs()
     {
         return view('contact');
     }
 
-    public function sendContact(Request $request)
+    public function postContact(Request $request)
     {
         $request->validate([
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|email',
-            'subject' => 'required',
-            'content' => 'required',
+            'subject' => 'required|min:5',
+            'content' => 'required|min:10'
         ]);
 
         Mail::to('contact@kelaptop.com')->send(new ContactMail($request->all()));

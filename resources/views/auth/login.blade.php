@@ -58,7 +58,7 @@
                 <div class="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
             </div>
             <div class="mt-4 flex gap-4">
-                <a href="{{url('/login/google')}}" class="w-full py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500">google</a>
+                <a href="{{route('google.login')}}" class="w-full py-2 text-center text-white bg-red-600 rounded uppercase font-roboto font-medium text-sm hover:bg-red-500">google</a>
             </div>
             <!-- ./login with -->
 
