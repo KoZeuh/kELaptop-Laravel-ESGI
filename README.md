@@ -37,6 +37,6 @@ Page d'Accueil (1pts) :
 
 17. Supplémentaire (non demandé)
 
-- Connexion/Inscription avec Google
-- Template de réception d'un mail envoyé par le formulaire de contact
-- Note et commentaire possible sur chaque produit (uniquement les personnes l'ayant achetés et n'ayant pas posté d'avis sur ce produit peuvent le faire)
+- Connexion/Inscription avec Google ✅
+- Template de réception d'un mail envoyé par le formulaire de contact ✅
+- Note et commentaire possible sur chaque produit (uniquement les personnes l'ayant achetés et n'ayant pas posté d'avis sur ce produit peuvent le faire) ✅
