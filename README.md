@@ -89,7 +89,7 @@ Feel free to send us feedback -> [file an issue](https://github.com/KoZeuh/kELap
 - Clone or download the repo.
 - `npm update` or `yarn update` to install dependencies
 - `composer update` to install Composer dependencies.
-- Import SQL file. (`database/db.sql`)
+- Import SQL file. (`database/db.sql`) - or you can run the available Seeders (`php artisan db:seed --class=XXX`)
 - Config ENV file. (`.env`)
 - `npm run dev` or `yarn run dev` for UI in development mode.
 - `npm run prod` or `yarn run prod` for UI in prod mode.
