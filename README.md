@@ -89,10 +89,13 @@ Feel free to send us feedback -> [file an issue](https://github.com/KoZeuh/kELap
 - Clone or download the repo.
 - `npm update` or `yarn update` to install dependencies
 - `composer update` to install Composer dependencies.
-- Import SQL file. (`database/db.sql`)
+- Import SQL file. (`database/db.sql`) - or you can run the available Seeders (`php artisan db:seed --class=XXX`)
 - Config ENV file. (`.env`)
+- `php artisan db:seed --class=UserAdminSeeder` to create an admin and buyer account.
 - `npm run dev` or `yarn run dev` for UI in development mode.
 - `npm run prod` or `yarn run prod` for UI in prod mode.
+- `php artisan storage:link` create a symbolic link between stored images (downloaded for products, for example) and the public directory
+- To store product/category images manually (WITHOUT IMPORT), everything must be in `storage/app/public/upload/images/categories` or `storage/app/public/upload/images/products` and the file name must be changed in the database. 
 
 **Development Keys**: The `CLIENT_ID` and `CLIENT_SECRET` in `.env` are for development purposes and do not represent the actual application keys. Feel free to use them or use a new set of keys by creating an [OAuth application](https://developers.google.com/identity/protocols/oauth2?hl=fr) of your own.
 
