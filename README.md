@@ -91,6 +91,7 @@ Feel free to send us feedback -> [file an issue](https://github.com/KoZeuh/kELap
 - `composer update` to install Composer dependencies.
 - Import SQL file. (`database/db.sql`) - or you can run the available Seeders (`php artisan db:seed --class=XXX`)
 - Config ENV file. (`.env`)
+- `php artisan db:seed --class=UserAdminSeeder` to create an admin and buyer account.
 - `npm run dev` or `yarn run dev` for UI in development mode.
 - `npm run prod` or `yarn run prod` for UI in prod mode.
 - `php artisan storage:link` create a symbolic link between stored images (downloaded for products, for example) and the public directory
