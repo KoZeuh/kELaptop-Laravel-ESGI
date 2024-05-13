@@ -51,31 +51,36 @@ class LoginController extends Controller
 
     public function handleGoogleCallback()
     {
-        $user = Socialite::driver('google')->user();
-        $userData = $user->user;
+        try {
+            $user = Socialite::driver('google')->user();
 
-        if (!$userData['email_verified']) {
-            return redirect()->route('login')->with('error', 'Vous devez valider votre email pour vous connecter');
-        }
+            $userData = $user->user;
 
-        if (User::where('email', $userData['email'])->exists()) {
-            $user = User::where('email', $userData['email'])->first();
-        } else {
-            $user = User::create([
-                'firstname' => $userData['given_name'],
-                'lastname' => $userData['family_name'],
-                'email' => $userData['email'],
-                'password' => Hash::make(Str::random(24)),
-                'created_with_google' => true,
-            ]);
+            if (!$userData['email_verified']) {
+                return redirect()->route('login')->with('error', 'Vous devez valider votre email pour vous connecter');
+            }
 
-            $user->assignRole('user');
-        }
+            if (User::where('email', $userData['email'])->exists()) {
+                $user = User::where('email', $userData['email'])->first();
+            } else {
+                $user = User::create([
+                    'firstname' => $userData['given_name'],
+                    'lastname' => $userData['family_name'],
+                    'email' => $userData['email'],
+                    'password' => Hash::make(Str::random(24)),
+                    'created_with_google' => true,
+                ]);
 
-        if ($user instanceof User) {
-            Auth::login($user);
+                $user->assignRole('user');
+            }
 
-            return redirect('/')->with('success', 'Vous vous êtes connecté avec succès');
+            if ($user instanceof User) {
+                Auth::login($user);
+
+                return redirect('/')->with('success', 'Vous vous êtes connecté avec succès');
+            }
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
         }
 
         return back()->with('error', 'Une erreur est survenue..');

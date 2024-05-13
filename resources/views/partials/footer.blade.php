@@ -10,10 +10,10 @@
             </div>
 
             <div class="flex space-x-5">
-                <a href="#" class="hover:text-gray-500"><i class="fa-brands fa-facebook-square"></i></a>
-                <a href="#" class="hover:text-gray-500"><i class="fa-brands fa-instagram-square"></i></a>
-                <a href="#" class="hover:text-gray-500"><i class="fa-brands fa-twitter-square"></i></a>
-                <a href="#" class="hover:text-gray-500"><i class="fa-brands fa-github-square"></i></a>
+                <a href="#" class="hover:text-gray-200"><i class="fa-brands fa-facebook-square"></i></a>
+                <a href="#" class="hover:text-gray-200"><i class="fa-brands fa-instagram-square"></i></a>
+                <a href="#" class="hover:text-gray-200"><i class="fa-brands fa-twitter-square"></i></a>
+                <a href="#" class="hover:text-gray-200"><i class="fa-brands fa-github-square"></i></a>
             </div>
         </div>
 
@@ -22,19 +22,19 @@
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Solutions</h3>
                     <div class="mt-4 space-y-4">
-                        <a href="#" class="text-base hover:text-gray-900 block">Marketing</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Analitycs</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Commerce</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Insights</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Marketing</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Analitycs</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Commerce</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Insights</a>
                     </div>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Support</h3>
                     <div class="mt-4 space-y-4">
-                        <a href="#" class="text-base hover:text-gray-900 block">Pricing</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Guides</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">API Status</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Pricing</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Guides</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">API Status</a>
                     </div>
                 </div>
             </div>
@@ -43,19 +43,19 @@
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Solutions</h3>
                     <div class="mt-4 space-y-4">
-                        <a href="#" class="text-base hover:text-gray-900 block">Marketing</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Analitycs</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Commerce</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Insights</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Marketing</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Analitycs</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Commerce</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Insights</a>
                     </div>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Support</h3>
                     <div class="mt-4 space-y-4">
-                        <a href="#" class="text-base hover:text-gray-900 block">Pricing</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">Guides</a>
-                        <a href="#" class="text-base hover:text-gray-900 block">API Status</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Pricing</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Guides</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">API Status</a>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
 
 <div class="bg-gray-400 py-4">
     <div class="container flex items-center justify-between">
-        <p class="text-white">&copy; {{ config('app.name') }} - All Right Reserved</p><br>
-        <p class="text-white">2024 - {{ date('Y') }}</p>
+        <p class="text-gray">&copy; {{ config('app.name') }} - All Right Reserved</p><br>
+        <p class="text-gray">2024 - {{ date('Y') }}</p>
         <img src="/images/methods.png" class="h-5">
     </div>
 </div>

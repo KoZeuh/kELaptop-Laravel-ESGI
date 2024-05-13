@@ -56,7 +56,7 @@ INSERT INTO `brands` (`id`, `name`, `created_at`, `updated_at`) VALUES
 (17, 'Dell', NULL, NULL),
 (18, 'Lenovo', NULL, NULL),
 (19, 'MSI', NULL, NULL),
-(20, 'Alienware', NULL, NULL),
+(20, 'Alienware', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -356,21 +356,6 @@ CREATE TABLE IF NOT EXISTS `products` (
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Déchargement des données de la table `products`
---
-
-INSERT INTO `products` (`id`, `category_id`, `brand_id`, `name`, `description`, `price`, `details`, `created_at`, `updated_at`) VALUES
-(1, 8, 1, 'iPhone 8', NULL, 1267.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(3, 8, 1, 'iPhone 10', NULL, 1338.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(4, 8, 1, 'iPhone 11', NULL, 964.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(5, 8, 1, 'iPhone 12', NULL, 1257.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(6, 8, 1, 'iPhone 13', NULL, 1366.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(7, 8, 1, 'iPhone 14', NULL, 798.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(8, 8, 1, 'iPhone 15', NULL, 908.00, '{\"camera\": \"Triple 12 MP\", \"battery\": \"3687 mAh\", \"display\": \"Super Retina XDR\", \"processor\": \"A14 Bionic\"}', NULL, NULL),
-(9, 8, 2, 'Galaxy S21', NULL, 1258.00, '{\"camera\": \"Quad 108 MP\", \"battery\": \"5000 mAh\", \"display\": \"Dynamic AMOLED 2X\", \"processor\": \"Exynos 2100\"}', NULL, '2024-04-27 15:02:23'),
-(10, 8, 2, 'Galaxy S20', NULL, 1326.00, '{\"camera\": \"Quad 108 MP\", \"battery\": \"5000 mAh\", \"display\": \"Dynamic AMOLED 2X\", \"processor\": \"Exynos 2100\"}', NULL, NULL);
-
---
 -- Déclencheurs `products`
 --
 DROP TRIGGER IF EXISTS `after_product_insert`;
@@ -408,42 +393,6 @@ CREATE TABLE IF NOT EXISTS `product_images` (
   KEY `product_images_product_id_foreign` (`product_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Déchargement des données de la table `product_images`
---
-
-INSERT INTO `product_images` (`id`, `product_id`, `path`, `isPrimary`, `created_at`, `updated_at`) VALUES
-(1, 1, 'iphone-8.jpg', 1, NULL, NULL),
-(4, 4, 'iphone 11-nZTNe.jpg', 1, NULL, '2024-04-27 14:52:17'),
-(5, 5, 'iphone 12-yfZf3.jpg', 1, NULL, '2024-04-27 14:59:25'),
-(6, 6, 'iphone 13-k2lve.jpg', 1, NULL, '2024-04-27 14:59:54'),
-(7, 7, 'iphone 14-YEgmw.jpg', 1, NULL, '2024-04-27 15:00:18'),
-(8, 8, 'iphone 15-8rwB7.jpg', 1, NULL, '2024-04-27 15:00:42'),
-(9, 9, 'galaxy s21-9bS6q.jpg', 1, NULL, '2024-04-27 15:04:05'),
-(10, 10, 'galaxy s20-vOMd2.jpg', 1, NULL, '2024-04-27 15:03:54'),
-(22, 1, 'iphone 8-bQ8Sf.jpg', 0, '2024-04-27 14:43:02', '2024-04-27 14:43:02'),
-(23, 1, 'iphone 8-Q8soS.jpg', 0, '2024-04-27 14:44:14', '2024-04-27 14:44:14'),
-(24, 1, 'iphone 8-Ch5m8.jpg', 0, '2024-04-27 14:44:21', '2024-04-27 14:44:21'),
-(29, 3, 'iphone 10-Kr55i.jpg', 1, '2024-04-27 14:50:08', '2024-04-27 14:50:08'),
-(30, 3, 'iphone 10-TjPxR.jpg', 0, '2024-04-27 14:50:14', '2024-04-27 14:50:14'),
-(31, 3, 'iphone 10-uhZD5.jpg', 0, '2024-04-27 14:50:18', '2024-04-27 14:50:18'),
-(32, 4, 'iphone 11-SZ0Su.jpg', 0, '2024-04-27 14:52:23', '2024-04-27 14:52:23'),
-(33, 4, 'iphone 11-clqIm.jpg', 0, '2024-04-27 14:52:27', '2024-04-27 14:52:27'),
-(34, 5, 'iphone 12-R6YeW.jpg', 0, '2024-04-27 14:59:32', '2024-04-27 14:59:32'),
-(35, 5, 'iphone 12-PSTG2.jpg', 0, '2024-04-27 14:59:38', '2024-04-27 14:59:38'),
-(36, 6, 'iphone 13-JvqaF.jpg', 0, '2024-04-27 15:00:01', '2024-04-27 15:00:01'),
-(37, 7, 'iphone 14-VGu2g.jpg', 0, '2024-04-27 15:00:27', '2024-04-27 15:00:27'),
-(38, 8, 'iphone 15-VHBSH.jpg', 0, '2024-04-27 15:00:49', '2024-04-27 15:00:49'),
-(39, 8, 'iphone 15-YL1nQ.jpg', 0, '2024-04-27 15:00:55', '2024-04-27 15:00:55'),
-(40, 9, 'galaxy s21-ipByX.jpg', 0, '2024-04-27 15:04:12', '2024-04-27 15:04:12'),
-(41, 9, 'galaxy s21-hZYpd.jpg', 0, '2024-04-27 15:04:19', '2024-04-27 15:04:19');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `product_reviews`
---
-
 DROP TABLE IF EXISTS `product_reviews`;
 CREATE TABLE IF NOT EXISTS `product_reviews` (
   `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -456,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `product_reviews` (
   PRIMARY KEY (`id`),
   KEY `product_reviews_product_id_foreign` (`product_id`),
   KEY `product_reviews_user_id_foreign` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
 
@@ -539,21 +488,6 @@ CREATE TABLE IF NOT EXISTS `stocks` (
   PRIMARY KEY (`product_id`),
   KEY `stocks_product_id_foreign` (`product_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Déchargement des données de la table `stocks`
---
-
-INSERT INTO `stocks` (`product_id`, `quantity`, `created_at`, `updated_at`) VALUES
-(1, 0, NULL, NULL),
-(3, 0, NULL, NULL),
-(4, 0, NULL, NULL),
-(5, 0, NULL, NULL),
-(6, 0, NULL, NULL),
-(7, 0, NULL, NULL),
-(8, 0, NULL, NULL),
-(9, 0, NULL, NULL),
-(10, 0, NULL, NULL);
 
 -- --------------------------------------------------------
 

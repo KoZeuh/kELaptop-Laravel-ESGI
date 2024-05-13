@@ -45,7 +45,7 @@
                                 <label for="content" class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none ">Message</label>
                             </div>
                             
-                            <button type="submit" class="w-[75%] rounded bg-sky-500 text-white px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal lg:mb-0">Envoyer</button>
+                            <button type="submit" class="w-[75%] rounded bg-sky-500 text-gray px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal lg:mb-0">Envoyer</button>
                         </form>
                     </div>
 

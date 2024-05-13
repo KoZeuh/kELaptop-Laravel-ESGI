@@ -13,27 +13,24 @@
                 </div>
 
                 <div class="p-6">
-                    <h3 class="text-lg font-extrabold text-gray-200">{{ $product->name }}</h3>
-                    <h4 class="text-lg text-gray-200 font-bold mt-2">{{ $product->price }} $</h4>
-                    <p class="text-gray-200 text-sm mt-2">{{ $product->description }}</p>
-                
+                    <h3 class="text-lg font-extrabold">{{ $product->name }}</h3>
+                    <h4 class="text-lg font-bold mt-2">{{ $product->price }} $</h4>
+                    <p class=" text-sm mt-2">{{ $product->description }}</p>
+
                     <div class="flex space-x-2 mt-6">
                         @php
                             $avgRating = number_format($product->reviews()->avg('rating'), 1, '.', ',');
-
-                            if ($avgRating == 0) {
-                                $avgRating = 1;
-                            }
+                            $starsCount = intval($avgRating) > 0 ? intval($avgRating) : 1;
                         @endphp
 
-                        @for ($i = 0; $i < intval($avgRating); $i++)
+                        @for ($i = 0; $i < $starsCount; $i++)
                             <span class="text-yellow-500"><i class="fa-solid fa-star"></i></span>
                         @endfor
 
-                        <span class="text-gray-200">({{ $avgRating }}/5 - basé sur {{ $product->reviews->count() }} avis)</span>
+                        <span>({{ $avgRating }}/5 - basé sur {{ $product->reviews->count() }} avis)</span>
                     </div>
                 </div>
             </a>
         </div>
-    @endforeach       
+    @endforeach
 </div>

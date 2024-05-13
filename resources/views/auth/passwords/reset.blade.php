@@ -12,8 +12,8 @@
                 
                 <div class="space-y-2">
                     <div>
-                        <label for="email" class="text-gray-600 mb-2 block">Adresse email</label>
-                        <input id="email" type="email" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                        <label for="email" class="text-gray-200 mb-2 block">Adresse email</label>
+                        <input id="email" type="email" class="block w-full border border-gray-300 px-4 py-3 text-gray-200 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -25,8 +25,8 @@
 
 
                     <div>
-                        <label for="password" class="text-gray-600 mb-2 block">Mot de passe</label>
-                        <input id="password" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                        <label for="password" class="text-gray-200 mb-2 block">Mot de passe</label>
+                        <input id="password" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-200 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">
@@ -36,17 +36,17 @@
                     </div>
 
                     <div>
-                        <label for="password-confirm" class="text-gray-600 mb-2 block">Mot de passe</label>
-                        <input id="password-confirm" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
+                        <label for="password-confirm" class="text-gray-200 mb-2 block">Mot de passe</label>
+                        <input id="password-confirm" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-200 text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('password') is-invalid @enderror" name="password_confirmation" required autocomplete="new-password">
                     </div>
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="block w-full py-2 text-center text-white bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">Envoyer</button>
+                    <button type="submit" class="block w-full py-2 text-center text-gray bg-primary border border-primary rounded hover:bg-transparent hover:text-primary transition uppercase font-roboto font-medium">Envoyer</button>
                 </div>
             </form>
 
-            <p class="mt-4 text-center text-gray-600">Vous n'avez pas encore de compte ? <a href="{{ route('register') }}" class="text-primary">S'inscrire maintenant</a></p>
+            <p class="mt-4 text-center text-gray-200">Vous n'avez pas encore de compte ? <a href="{{ route('register') }}" class="text-primary">S'inscrire maintenant</a></p>
         </div>
     </div>
 @endsection

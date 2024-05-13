@@ -15,12 +15,12 @@ class ProductSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {        
+    {
         $smartphoneCategoryId = Category::where('name', 'Smartphones')->first()->id;
 
         $appleBrandId = Brand::where('name', 'Apple')->first()->id;
 
-        for ($i = 8; $i < 16; $i++) {
+        for ($i = 14; $i < 15; $i++) {
             if ($i === 9) {
                 continue;
             }
@@ -42,7 +42,7 @@ class ProductSeeder extends Seeder
         }
 
         $samsungBrandId = Brand::where('name', 'Samsung')->first()->id;
-        
+
         for ($i = 20; $i < 22; $i++) {
             $productId = DB::table('products')->insertGetId([
                 'name' => 'Galaxy S' . $i,

@@ -1,20 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container py-4 flex items-center gap-3">
+    <div class="container py-4 flex items-center gap-3 text-gray-200">
         <a href="{{route('home')}}" class="text-primary text-base">
             <i class="fa-solid fa-house"></i>
         </a>
 
-        <span class="text-sm text-gray-400">
+        <span class="text-sm">
             <i class="fa-solid fa-chevron-right"></i>
         </span>
 
-        <p class="text-white font-medium">Produits</p>
+        <p class="font-medium">Produits</p>
     </div>
 
-    <div class="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start">
-        <div class="col-span-1 bg-gray-600 text-white px-4 pb-6 shadow rounded overflow-hiddenb hidden md:block">
+    <div class="container grid md:grid-cols-4 grid-cols-2 gap-6 pt-4 pb-16 items-start text-gray-200">
+        <div class="col-span-1 bg-gray-600 px-4 pb-6 shadow rounded overflow-hidden hidden md:block">
             <div class="divide-y divide-gray-200 space-y-5">
                 <div>
                     <h3 class="text-xl mb-3 uppercase font-medium">Catégories</h3>
@@ -61,13 +61,13 @@
         <div class="col-span-3">
             <div class="flex justify-center mb-5">
                 {!! $products->links() !!}
-            </div>  
+            </div>
 
             @include('partials.product.list')
 
             <div class="flex justify-center mt-5">
                 {!! $products->links() !!}
-            </div>  
+            </div>
         </div>
     </div>
 @endsection

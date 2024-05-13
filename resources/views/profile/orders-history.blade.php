@@ -16,11 +16,11 @@
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200">
                     <div class="data">
                         <p class="font-semibold text-base leading-7 text-black">N° de commande: <span class="text-indigo-600 font-medium">#{{$order->id}}</span></p>
-                        <p class="font-semibold text-base leading-7 text-black mt-4">Statut de la commande: <span class="text-gray-400 font-medium">@if ($order->status == 'COMPLETED') <span class="text-green-400 font-medium">Commande validée</span> @else <span class="text-red-400 font-medium">En attente de confirmation du vendeur @endif</span></p>
-                        <p class="font-semibold text-base leading-7 text-black mt-4">Date de paiement : <span class="text-gray-400 font-medium">{{$order->created_at}}</span></p>
+                        <p class="font-semibold text-base leading-7 text-black mt-4">Statut de la commande: <span class="text-gray-200 font-medium">@if ($order->status == 'COMPLETED') <span class="text-green-400 font-medium">Commande validée</span> @else <span class="text-red-400 font-medium">En attente de confirmation du vendeur @endif</span></p>
+                        <p class="font-semibold text-base leading-7 text-black mt-4">Date de paiement : <span class="text-gray-200 font-medium">{{$order->created_at}}</span></p>
                     </div>
 
-                    <button class="rounded-full py-3 px-7 font-semibold text-sm leading-7 text-white bg-indigo-600 max-lg:mt-5 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">Suivre votre commande</button>
+                    <button class="rounded-full py-3 px-7 font-semibold text-sm leading-7 text-gray bg-indigo-600 max-lg:mt-5 shadow-sm shadow-transparent transition-all duration-500 hover:bg-indigo-700 hover:shadow-indigo-400">Suivre votre commande</button>
                 </div>
 
                 @foreach($order->items as $item)
@@ -72,7 +72,7 @@
                 @if ($amountDiscount > 0)
                     <div class="w-full px-6 flex flex-col lg:flex-row items-center justify-between">
                         <div class="flex flex-col sm:flex-row items-center max-lg:border-b border-gray-200">
-                            <p class="font-medium text-lg text-gray-900 pl-6 py-3 max-lg:text-center">Réduction ({{$order->promoCode->discount}} %) (Code : <u>{{$order->promoCode->code}})</u></p>
+                            <p class="font-medium text-lg text-gray-200 pl-6 py-3 max-lg:text-center">Réduction ({{$order->promoCode->discount}} %) (Code : <u>{{$order->promoCode->code}})</u></p>
                         </div>
 
                         <p class="font-semibold text-lg text-black py-6">Montant de la réduction: <span class="text-indigo-600"> {{$amountDiscount}} $ </span></p>
@@ -82,7 +82,7 @@
 
                 <div class="w-full border-t border-gray-200 px-6 flex flex-col lg:flex-row items-center justify-between ">
                     <div class="flex flex-col sm:flex-row items-center max-lg:border-b border-gray-200">
-                        <p class="font-medium text-lg text-gray-900 pl-6 py-3 max-lg:text-center">Paiement réalisé avec la carte <span class="text-gray-500">finissant par 8822</span></p>
+                        <p class="font-medium text-lg text-gray-200 pl-6 py-3 max-lg:text-center">Paiement réalisé avec la carte <span class="text-gray-200">finissant par 8822</span></p>
                     </div>
 
                     <p class="font-semibold text-lg text-black py-6">@if ($amountDiscount > 0) Sous-total: <span class="text-indigo-600">{{$checkoutTotalAmount}} $</span><br> @endif Prix total: <span class="text-indigo-600"> {{$checkoutTotalAmount - $amountDiscount}} $</span></p>

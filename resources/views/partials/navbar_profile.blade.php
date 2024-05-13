@@ -4,11 +4,11 @@
         <i class="fa-solid fa-house"></i>
     </a>
 
-    <span class="text-sm text-gray-400">
+    <span class="text-sm text-gray-200">
         <i class="fa-solid fa-chevron-right"></i>
     </span>
 
-    <p class="text-gray-600 font-medium">Mon profil</p>
+    <p class="text-gray-200 font-medium">Mon profil</p>
 </div>
 
 <div class="container grid grid-cols-12 items-start gap-6 pt-4 pb-16">
@@ -19,12 +19,12 @@
             </div>
 
             <div class="flex-grow">
-                <p class="text-gray-600">Bonjour,</p>
-                <h4 class="text-gray-800 font-medium">{{$currentUser->firstname}}</h4>
+                <p class="text-gray-200">Bonjour,</p>
+                <h4 class="text-gray-200 font-medium">{{$currentUser->firstname}}</h4>
             </div>
         </div>
 
-        <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-600">
+        <div class="mt-6 bg-white shadow rounded p-4 divide-y divide-gray-200 space-y-4 text-gray-200">
             <div class="space-y-1 pl-8">
                 <a href="{{route('profile.index')}}" class="relative text-primary block font-medium transition">
                     <span class="absolute -left-8 top-0 text-base">

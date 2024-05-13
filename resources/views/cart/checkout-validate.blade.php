@@ -16,16 +16,16 @@
                             </svg>
                         </a>
 
-                        <span class="font-semibold text-gray-900">Commande validée</span>
+                        <span class="font-semibold text-gray-200">Commande validée</span>
                     </li>
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                     </svg>
 
                     <li class="flex items-center space-x-3 text-left sm:space-x-4">
-                        <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-white ring ring-gray-600 ring-offset-2" href="#">2</a>
-                        <span class="font-semibold text-gray-900">En attente de confirmation du vendeur</span>
+                        <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-gray ring ring-gray-600 ring-offset-2" href="#">2</a>
+                        <span class="font-semibold text-gray-200">En attente de confirmation du vendeur</span>
                     </li>
                 </ul>
             </div>
@@ -62,26 +62,26 @@
                         
                         <div class="mt-6 border-t border-b py-2">
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900">Sous-total</p>
-                                <p class="font-semibold text-gray-900">{{ $checkoutTotalAmount}} $</p>
+                                <p class="text-sm font-medium text-gray-200">Sous-total</p>
+                                <p class="font-semibold text-gray-200">{{ $checkoutTotalAmount}} $</p>
                             </div>
 
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-900">Frais de livraison</p>
-                                <p class="font-semibold text-gray-900">$0.00</p>
+                                <p class="text-sm font-medium text-gray-200">Frais de livraison</p>
+                                <p class="font-semibold text-gray-200">$0.00</p>
                             </div>
 
                             @if ($amountDiscount > 0)
                                 <div class="flex items-center justify-between">
-                                    <p class="text-sm font-medium text-gray-900">Réduction ({{$order->promoCode->discount}} %) (Code : <u>{{$order->promoCode->code}})</p>
-                                    <p class="font-semibold text-gray-900"></u>{{$amountDiscount}} $</p>
+                                    <p class="text-sm font-medium text-gray-200">Réduction ({{$order->promoCode->discount}} %) (Code : <u>{{$order->promoCode->code}})</p>
+                                    <p class="font-semibold text-gray-200"></u>{{$amountDiscount}} $</p>
                                 </div>
                             @endif
                         </div>
                         
                         <div class="mt-6 flex items-center justify-between">
-                            <p class="text-sm font-medium text-gray-900">Total</p>
-                            <p class="text-2xl font-semibold text-gray-900">{{$checkoutTotalAmount - $amountDiscount}} $</p>
+                            <p class="text-sm font-medium text-gray-200">Total</p>
+                            <p class="text-2xl font-semibold text-gray-200">{{$checkoutTotalAmount - $amountDiscount}} $</p>
                         </div>
                     </div>
                 </div>

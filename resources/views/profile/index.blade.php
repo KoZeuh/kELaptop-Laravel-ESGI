@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <button type="submit" class="py-3 px-4 text-center text-white bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">Sauvegarder les changements</button>
+                    <button type="submit" class="py-3 px-4 text-center text-gray bg-primary border border-primary rounded-md hover:bg-transparent hover:text-primary transition font-medium">Sauvegarder les changements</button>
                 </div>
             </form>
         </div>
