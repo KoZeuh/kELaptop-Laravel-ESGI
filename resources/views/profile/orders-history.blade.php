@@ -8,9 +8,9 @@
     @include('partials.navbar_profile')
 
     <div class="col-span-9 shadow rounded px-6 pt-5 pb-7">
-        <h4 class="text-lg font-medium mb-4">Historique de mes commandes</h4>
+        <h4 class="text-lg font-medium mb-4 text-gray-200">Historique de mes commandes</h4>
         <div class="mt-5">{{ $orders->links() }}</div>
-            
+
         @foreach($orders as $order)
             <div class="main-box border border-gray-200 rounded-xl pt-6 mt-5">
                 <div class="flex flex-col lg:flex-row lg:items-center justify-between px-6 pb-6 border-b border-gray-200">
@@ -27,7 +27,7 @@
                     <div class="w-full px-3 min-[400px]:px-6">
                         <div class="flex flex-col lg:flex-row items-center py-6 border-b border-gray-200 gap-6 w-full">
                             <div class="img-box">
-                                <img src="{{ asset('storage/upload/images/' . $item->product->images->first()->path}}" class="h-20 w-20 transition-all duration-300 rounded-lg">
+                                <img src="{{ asset('storage/upload/images/' . $item->product->images->first()->path) }}" class="h-20 w-20 transition-all duration-300 rounded-lg">
                             </div>
 
                             <div class="flex flex-row items-center w-full ">
@@ -68,7 +68,7 @@
                         $amountDiscount = ($checkoutTotalAmount * $order->promoCode->discount / 100);
                     }
                 @endphp
-                
+
                 @if ($amountDiscount > 0)
                     <div class="w-full px-6 flex flex-col lg:flex-row items-center justify-between">
                         <div class="flex flex-col sm:flex-row items-center max-lg:border-b border-gray-200">
@@ -89,5 +89,5 @@
                 </div>
             </div>
         @endforeach
-    </div>                
+    </div>
 @endsection

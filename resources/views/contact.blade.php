@@ -5,51 +5,48 @@
         <div id="map" class="relative h-[300px] overflow-hidden bg-cover bg-[50%] bg-no-repeat">
             <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d11672.945750644447!2d-122.42107853750231!3d37.7730507907087!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80858070cc2fbd55%3A0xa71491d736f62d5c!2sGolden%20Gate%20Bridge!5e0!3m2!1sen!2sus!4v1619524992238!5m2!1sen!2sus"
-            width="100%" height="480" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            width="100%" height="480"  allowfullscreen="" loading="lazy"></iframe>
         </div>
 
         <div class="container px-6 md:px-12">
-            <div class="block rounded-lg bg-[hsla(0,0%,100%,0.8)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)]  md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px] border border-gray-300">
+            <div class="block rounded-lg bg-[hsla(0,0%,100%,0.8)] px-6 py-12 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] md:py-16 md:px-12 -mt-[100px] backdrop-blur-[30px] border border-gray-300">
                 <div class="flex flex-wrap">
-                    <div class="mb-12 w-full shrink-0 grow-0 basis-auto md:px-3 lg:mb-0 lg:w-5/12 lg:px-6">
+                    <div class="mb-12 w-full md:w-5/12 mb-12 md:mb-0 md:px-3">
                         <form method="POST" action="{{ route('home.contact_us.send') }}" class="flex flex-wrap">
                             @csrf
 
-                            <div class="relative mb-6" data-te-input-wrapper-init>
+                            <div class="relative mb-6 w-full" data-te-input-wrapper-init>
                                 <input type="text" id="firstname" name="firstname" class="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 peer-focus:text-primary data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "/>
-                                @error('firstname') <span class="text-red-500">{{ $message }}</span> @enderror
                                 <label class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none " for="firstname">Prénom</label>
                             </div>
 
-                            <div class="relative mx-5 mb-6" data-te-input-wrapper-init>
+                            <div class="relative xl:mx/5 lg:mx/5 w-full mb-6" data-te-input-wrapper-init>
                                 <input type="text" id="lastname" name="lastname" class="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "/>
-                                @error('lastname') <span class="text-red-500">{{ $message }}</span> @enderror
                                 <label class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none " for="lastname">Nom</label>
                             </div>
 
-                            <div class="relative mb-6" data-te-input-wrapper-init>
-                                <input type="email" id="email" name="email" class="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "/>
-                                @error('email') <span class="text-red-500">{{ $message }}</span> @enderror
+                            <div class="relative mb-6 w-full flex flex-col items-center" data-te-input-wrapper-init>
+                                <input type="email" id="email" name="email" class="peer block min-h-[auto] w-full max-w-md rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "/>
                                 <label class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none " for="email">Email</label>
                             </div>
 
-                            <div class="relative mx-5 mb-6" data-te-input-wrapper-init>
+                            <div class="relative w-[100%] mb-6" data-te-input-wrapper-init>
                                 <input type="text" id="subject" name="subject" class="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none "/>
-                                @error('subject') <span class="text-red-500">{{ $message }}</span> @enderror
                                 <label class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none " for="subject">Sujet</label>
                             </div>
 
-                            <div class="relative w-[75%] mb-12" data-te-input-wrapper-init>
+                            <div class="relative w-[100%] mb-5" data-te-input-wrapper-init>
                                 <textarea id="content" name="content" class="peer block min-h-[auto] w-full rounded border-2 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none " rows="3"></textarea>
-                                @error('content') <span class="text-red-500">{{ $message }}</span> @enderror
                                 <label for="content" class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none ">Message</label>
                             </div>
-                            
-                            <button type="submit" class="w-[75%] rounded bg-sky-500 text-gray px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal lg:mb-0">Envoyer</button>
+
+                            <div class="relative mb-5 w-full flex justify-center">
+                                <button type="submit" class="w-[75%] rounded bg-sky-500 text-gray px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal lg:mb-0">Envoyer</button>
+                            </div>
                         </form>
                     </div>
 
-                    <div class="w-full shrink-0 grow-0 basis-auto lg:w-7/12">
+                    <div class="w-full md:w-7/12">
                         <div class="flex flex-wrap">
                             <div class="mb-12 w-full shrink-0 grow-0 basis-auto md:w-6/12 md:px-3 lg:w-full lg:px-6 xl:w-6/12">
                                 <div class="flex items-start">

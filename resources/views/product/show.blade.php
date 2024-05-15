@@ -63,9 +63,9 @@
                 <form action="{{ route('cart.add') }}" method="POST">
                     @csrf
 
-                    <h2 class="mt-8 text-base">Quantité</h2>
+                    <h2 class="mt-8">Quantité</h2>
                     <div class="mt-3 flex select-none flex-wrap items-center gap-1">
-                        <input type="number" name="quantity" class="w-20 border border-gray-300 rounded-lg px-4 py-2" min="1" max="{{$countInStock}}" value="1" required>
+                        <input type="number" name="quantity" class="w-20 border text-gray-800 rounded-lg px-4 py-2" min="1" max="{{$countInStock}}" value="1" required>
                     </div>
 
                     <div class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
@@ -77,7 +77,7 @@
                         <div class="px-5">
                             @if ($countInStock > 0)
                                 <input type="hidden" name="product_id" value="{{$product->id}}">
-                                <button type="submit" class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-gray-900 bg-none px-12 py-3 text-center text-base font-bold text-gray transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
+                                <button type="submit" class="inline-flex items-center justify-center rounded-md border-2 border-transparent bg-green-900 bg-none px-12 py-3 text-center text-base font-bold text-gray transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="shrink-0 mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                     </svg>

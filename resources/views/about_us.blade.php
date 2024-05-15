@@ -48,7 +48,7 @@
             <h2 class="font-manrope text-4xl text-center font-bold mb-14">Nos résultats en chiffres</h2>
             <div class="flex flex-col gap-5 xl:gap-8 lg:flex-row lg:justify-between">
                 <div
-                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-400">
+                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-600">
                     <div class="flex gap-5">
                         <div class="font-manrope text-2xl font-bold text-indigo-600">
                             240%
@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div
-                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-400">
+                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-600">
                     <div class="flex gap-5">
                         <div class="font-manrope text-2xl font-bold text-indigo-600">
                             175+
@@ -73,7 +73,7 @@
                     </div>
                 </div>
                 <div
-                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-400">
+                    class="w-full max-lg:max-w-2xl mx-auto lg:mx-0 lg:w-1/3 p-6 rounded-2xl shadow-md bg-gray-600">
                     <div class="flex gap-5">
                         <div class="font-manrope text-2xl font-bold text-indigo-600">
                             625+

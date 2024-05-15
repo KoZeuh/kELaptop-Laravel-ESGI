@@ -2,10 +2,10 @@
     $avgRating = number_format($product->reviews()->avg('rating'), 1, '.', ',');
 @endphp
 
-<section class="py-24 relative text-gray-200">
+<section class=" relative text-gray-200">
     <div class="w-full max-w-7xl px-4 md:px-5 lg-6 mx-auto">
         <div class="w-full">
-            <h2 class="font-manrope font-bold text-4xl text-black mb-8 text-center">L'avis de nos clients</h2>
+            <h2 class="font-manrope font-bold text-4xl text-gray-300 mb-8 text-center">L'avis de nos clients</h2>
 
             <div class="grid grid-cols-1 xl:grid-cols-2 gap-11 pb-11 border-b border-gray-100 max-xl:max-w-2xl max-xl:mx-auto">
                 <div class="box flex flex-col gap-y-4 w-full ">
@@ -33,7 +33,7 @@
                         @endfor
                     </div>
 
-                    <p class="font-medium text-xl leading-8 text-center">Basé sur {{ $product->reviews()->count() }} avis</p>
+                    <p class="font-medium text-xl leading-8 text-center text-gray-800">Basé sur {{ $product->reviews()->count() }} avis</p>
                 </div>
 
                 @auth
@@ -56,7 +56,7 @@
                     <div class="flex sm:items-center flex-col min-[400px]:flex-row justify-between gap-5 mb-4">
                         <div class="flex items-center gap-3">
                             <img src="https://avatar.iran.liara.run/username?username={{$review->user->firstname}}+{{$review->user->lastname}}" class="w-8 h-8">
-                            <h6 class="font-semibold text-lg leading-8 text-indigo-600 ">{{$review->user->firstname}} {{$review->user->lastname}}</h6>(<span class="font-normal text-lg leading-8 text-gray">{{$currentUser->reviews->count()}} avis</span>)
+                            <h6 class="font-semibold text-lg leading-8 text-indigo-600 ">{{$review->user->firstname}} {{$review->user->lastname}}</h6>(<span class="font-normal text-lg leading-8 text-gray">{{$reviews->count()}} avis</span>)
                         </div>
 
                         <p class="font-normal text-lg leading-8">Posté le : {{$review->created_at->format('d/m/Y')}}</p>
