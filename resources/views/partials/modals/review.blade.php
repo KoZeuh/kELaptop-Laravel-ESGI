@@ -17,7 +17,7 @@
                 <input type="hidden" name="product_id" value="{{$product->id}}">
 
                 <div class="mt-4">
-                    <label for="rating" class="text-gray-200">Note</label>
+                    <label for="rating">Note</label>
 
                     <select name="rating" id="rating" class="w-full border border-gray-300 rounded-lg p-2 mt-1">
                         @for ($i = 1; $i <= 5; $i++)
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="mt-4">
-                    <label for="review" class="text-gray-200">Votre avis</label>
+                    <label for="review">Votre avis</label>
 
                     <textarea name="review" id="review" class="w-full border border-gray-300 rounded-lg p-2 mt-1" rows="5"></textarea>
                 </div>

@@ -1,7 +1,7 @@
 <header class="py-4 shadow-sm bg-gray-400">
     <div class="container flex items-center justify-between">
         <a href="{{route('home')}}">
-            <img src="/images/logo.svg" class="w-32">
+            <img src="/images/logo.png" class="w-20">
         </a>
 
         <div class="w-full max-w-xl relative flex">
@@ -9,8 +9,8 @@
                 <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex" placeholder="search">
-                <button class="bg-primary border border-primary text-gray px-8 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Rechercher</button>
+            <input type="text" name="search" id="search" class="w-full border border-primary border-r-0 pl-12 py-3 pr-3 rounded-l-md focus:outline-none hidden md:flex" placeholder="iPhone 14">
+                <button class="bg-primary border border-primary text-center text-gray px-4 rounded-r-md hover:bg-transparent hover:text-primary transition hidden md:flex">Rechercher</button>
             </div>
 
             <div class="flex items-center space-x-4">

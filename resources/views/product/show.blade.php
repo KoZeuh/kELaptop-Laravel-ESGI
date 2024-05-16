@@ -21,7 +21,7 @@
         <p class="font-medium">Détails d'un produit</p>
     </div>
 
-    <div class="container mx-auto text-gray-200">
+    <div class="container mx-auto text-gray-200 mb-6">
         <div class="lg:col-gap-12 xl:col-gap-16 mt-8 grid grid-cols-1 gap-12 lg:mt-12 lg:grid-cols-5 lg:gap-16">
             <div class="lg:col-span-3 lg:row-end-1">
                 <div class="lg:flex lg:items-start">
@@ -130,12 +130,12 @@
 
             <div class="lg:col-span-3 text-gray-200">
                 <div class="border-b border-gray-300">
-                    <nav class="flex gap-4">
-                        <h2 class="text-lg font-medium">Description</h2>
+                    <nav class="flex">
+                        <h2 class="text-sm font-medium">Description</h2>
                     </nav>
                 </div>
 
-                <div class="mt-8 flow-root sm:mt-12">
+                <div class="flow-root mt-1">
                     <p class="mt-4">{{ $product->description }}</p>
                 </div>
             </div>

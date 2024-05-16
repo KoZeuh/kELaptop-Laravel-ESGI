@@ -49,10 +49,10 @@ class ProductImageCrudController extends CrudController
     protected function setupCreateOperation()
     {
         CRUD::setValidation(ProductImageRequest::class);
-        CRUD::setFromDb(); 
+        CRUD::setFromDb();
 
         CRUD::field('product_id')->label('Product')->type('select')->entity('product')->attribute('name')->model('App\Models\Product');
-        CRUD::field('path')->type('upload')->disk('public')->upload(true);
+        CRUD::field('path')->type('upload')->disk('publicProducts')->upload(true);
     }
 
     protected function setupUpdateOperation()

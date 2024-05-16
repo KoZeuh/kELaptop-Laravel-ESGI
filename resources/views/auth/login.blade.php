@@ -10,7 +10,7 @@
                 <div class="space-y-2">
                     <div>
                         <label for="email" class="text-gray mb-2 block">Adresse email</label>
-                        <input id="email" type="email" class="block w-full border border-gray-300 px-4 py-3 text-gray text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <input id="email" type="email" class="block w-full border border-gray-300 text-gray-800 px-4 py-3 text-sm rounded focus:ring-0 focus:border-primary @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                         @error('email')
                             <span class="invalid-feedback" role="alert">
@@ -23,7 +23,7 @@
 
                     <div>
                         <label for="password" class="text-gray mb-2 block">Mot de passe</label>
-                        <input id="password" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray text-sm rounded focus:ring-0 focus:border-primary placeholder-gray-400 @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <input id="password" type="password" class="block w-full border border-gray-300 px-4 py-3 text-gray-800 text-sm rounded focus:ring-0 focus:border-primary @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                         @error('password')
                             <span class="invalid-feedback" role="alert">

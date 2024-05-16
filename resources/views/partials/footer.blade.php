@@ -3,7 +3,7 @@
     <div class="container grid grid-cols-1 ">
 
         <div class="col-span-1 space-y-4">
-            <img src="/images/logo.svg" class="w-30">
+            <img src="/images/logo.png" class="w-20">
 
             <div class="mr-2">
                 <p>Une envie d'un outil informatique d'une qualité digne de ce nom? Faîtes-nous confiance !</p>
@@ -43,18 +43,17 @@
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Solutions</h3>
                     <div class="mt-4 space-y-4">
                         <a href="#" class="text-base hover:text-gray-200 block">Marketing</a>
-                        <a href="#" class="text-base hover:text-gray-200 block">Analitycs</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Analyse</a>
                         <a href="#" class="text-base hover:text-gray-200 block">Commerce</a>
-                        <a href="#" class="text-base hover:text-gray-200 block">Insights</a>
                     </div>
                 </div>
 
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider">Support</h3>
                     <div class="mt-4 space-y-4">
-                        <a href="#" class="text-base hover:text-gray-200 block">Pricing</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Prix</a>
                         <a href="#" class="text-base hover:text-gray-200 block">Guides</a>
-                        <a href="#" class="text-base hover:text-gray-200 block">API Status</a>
+                        <a href="#" class="text-base hover:text-gray-200 block">Status</a>
                     </div>
                 </div>
             </div>
