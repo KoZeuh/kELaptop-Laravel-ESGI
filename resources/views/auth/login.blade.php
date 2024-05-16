@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="contain py-16">
-        <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden">
+        <div class="max-w-lg mx-auto shadow px-6 py-7 rounded overflow-hidden bg-gray-600 text-gray-200">
             <h2 class="text-2xl uppercase font-medium mb-1">Connexion</h2>
             <p class="text-gray mb-6 text-sm">Bon retour !</p>
             <form method="POST" action="{{ route('login') }}">
@@ -40,7 +40,7 @@
                     </div>
 
                     @if (Route::has('password.request'))
-                        <a class="text-primary" href="{{ route('password.request') }}">
+                        <a class="text-gray-200" href="{{ route('password.request') }}">
                             {{ __('Mot de passe oublié ?') }}
                         </a>
                     @endif
@@ -54,7 +54,7 @@
 
             <!-- login with -->
             <div class="mt-6 flex justify-center relative">
-                <div class="text-gray uppercase px-3 bg-white z-10 relative">Ou se connecter avec</div>
+                <div class="text-gray-800 uppercase px-3 bg-white z-10 relative">Ou se connecter avec</div>
                 <div class="absolute left-0 top-3 w-full border-b-2 border-gray-200"></div>
             </div>
             <div class="mt-4 flex gap-4">
@@ -62,7 +62,7 @@
             </div>
             <!-- ./login with -->
 
-            <p class="mt-4 text-center text-gray">Vous n'avez pas encore de compte ? <a href="{{ route('register') }}" class="text-primary">S'inscrire maintenant</a></p>
+            <p class="mt-4 text-center text-gray">Vous n'avez pas encore de compte ? <a href="{{ route('register') }}" class="text-green-300">S'inscrire maintenant</a></p>
         </div>
     </div>
     <!-- ./login -->

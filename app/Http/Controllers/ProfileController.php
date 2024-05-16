@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Order;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -35,9 +36,31 @@ class ProfileController extends Controller
         $user->zip = $request->zip;
         $user->country = $request->country;
 
-        $user->save();
+        if ($request->old_password && $request->new_password && $request->confirm_password) {
+            $request->validate([
+                'old_password' => 'required',
+                'new_password' => 'required|min:8|confirmed'
+            ], [
+                'old_password.required' => 'L\'ancien mot de passe est requis',
+                'new_password.required' => 'Le nouveau mot de passe est requis',
+                'new_password.min' => 'Le nouveau mot de passe doit contenir au moins 8 caractères',
+                'new_password.confirmed' => 'La confirmation du mot de passe ne correspond pas',
+            ]);
 
-        return redirect('/profile')->with('success', 'Votre profil a été mis à jour');
+            if (!Hash::check($request->old_password, $user->password)) {
+                return redirect('/profile')->with('error', 'L\'ancien mot de passe est incorrect');
+            }
+
+            $user->password = Hash::make($request->new_password);
+        }
+
+        try {
+            $user->save();
+
+            return redirect('/profile')->with('success', 'Votre profil a été mis à jour');
+        } catch (\Exception $e) {
+            return redirect('/profile')->with('error', strval($request->firstname));
+        }
     }
 
     public function showOrdersHistory()

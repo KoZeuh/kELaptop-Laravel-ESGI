@@ -12,6 +12,12 @@
         <span class="text-sm">
             <i class="fa-solid fa-chevron-right"></i>
         </span>
+        <a href="{{route('product.list')}}">
+            <p class="font-medium">Liste des produits</p>
+        </a>
+        <span class="text-sm">
+            <i class="fa-solid fa-chevron-right"></i>
+        </span>
         <p class="font-medium">Détails d'un produit</p>
     </div>
 
@@ -71,7 +77,7 @@
                     <div class="mt-10 flex flex-col items-center justify-between space-y-4 border-t border-b py-4 sm:flex-row sm:space-y-0">
                         <div class="flex items-end">
                             <h1 class="text-3xl font-bold">{{ $product->price }}</h1>
-                            <span class="text-base">/u</span>
+                            <span class="text-base"> $/u</span>
                         </div>
 
                         <div class="px-5">
@@ -144,25 +150,25 @@
         <h2 class="text-2xl font-medium uppercase mb-6">Produit(s) similaire(s)</h2>
         <div class="grid grid-cols-4 gap-6">
             @foreach ($similarProducts as $similarProduct)
-                <div class="bg-white shadow rounded overflow-hidden group flex flex-col">
-                    <div class="relative flex-shrink-0" style="height: 200px;"> <!-- Fixe la hauteur des images -->
+                <div class="bg-gray-600 shadow rounded overflow-hidden group flex flex-col">
+                    <div class="relative flex-shrink-0" style="height: 200px;">
                         <img src="{{ asset('storage/upload/images/products/' . $similarProduct->images()->first()->path) }}" class="h-full w-full object-cover"> <!-- Utilise object-cover pour maintenir les proportions -->
-                        <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
+                        <div class="absolute inset-0 bg-gray-600 bg-opacity-40 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition">
                             <a href="{{ route('product.show', $similarProduct->id) }}"
-                               class="text-lg w-9 h-8 rounded-full bg-primary flex items-center justify-center hover:bg-gray-800 transition"
+                               class="text-lg w-9 h-8 rounded-full flex items-center justify-center hover:bg-white transition"
                                title="view product">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </a>
                         </div>
                     </div>
-                    <div class="flex-grow p-4 flex flex-col"> <!-- Flex-grow pour prendre l'espace restant -->
+                    <div class="flex-grow p-4 flex flex-col">
                         <a href="{{ route('product.show', $similarProduct->id) }}" class="mb-2">
                             <h4 class="uppercase font-medium text-xl hover:text-primary transition truncate"> <!-- Truncate pour couper le texte long -->
                                 {{ $similarProduct->name }}
                             </h4>
                         </a>
                         <div class="flex items-baseline mb-1 space-x-2">
-                            <p class="text-xl text-primary font-semibold">{{ $similarProduct->price }} $</p>
+                            <p class="text-xl text-green-300 font-semibold">{{ $similarProduct->price }} $</p>
                         </div>
                         <div class="flex flex-1 items-end justify-between"> <!-- Alignement des étoiles et avis en bas -->
                             <div class="flex gap-1 text-sm text-yellow-400">

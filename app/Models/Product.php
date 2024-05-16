@@ -59,4 +59,8 @@ class Product extends Model
         return $this->hasMany(ProductReview::class);
     }
 
+    public function stock()
+    {
+        return $this->hasOne(Stock::class);
+    }
 }

@@ -16,10 +16,10 @@
             <div class="space-y-4">
                 <div class="grid grid-cols-2 gap-4">
                     <label for="firstName">Prénom</label>
-                    <input type="text" name="firstName" id="firstName" class="input-box" value="{{$currentUser->firstname}}">
+                    <input type="text" name="firstname" id="firstname" class="input-box" value="{{$currentUser->firstname}}">
 
                     <label for="lastName">Nom de famille</label>
-                    <input type="text" name="lastName" id="lastName" class="input-box" value="{{$currentUser->lastname}}">
+                    <input type="text" name="lastname" id="lastname" class="input-box" value="{{$currentUser->lastname}}">
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
@@ -52,14 +52,14 @@
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
-                    <label for="old-password">Ancien mot de passe</label>
-                    <input type="password" name="old-password" id="old-password" class="input-box">
+                    <label for="old_password">Ancien mot de passe</label>
+                    <input type="password" name="old_password" id="old_password" class="input-box">
 
-                    <label for="new-password">Nouveau mot de passe</label>
-                    <input type="password" name="new-password" id="new-password" class="input-box">
+                    <label for="new_password">Nouveau mot de passe</label>
+                    <input type="password" name="new_password" id="new_password" class="input-box">
 
-                    <label for="confirm-password">Confirmer le mot de passe</label>
-                    <input type="password" name="confirm-password" id="confirm-password" class="input-box">
+                    <label for="confirm_password">Confirmer le mot de passe</label>
+                    <input type="password" name="confirm_password" id="confirm_password" class="input-box">
                 </div>
 
                 <div class="mt-4">
