@@ -67,8 +67,8 @@
                             </div>
 
                             <div class="flex items-center justify-between">
-                                <p class="text-sm font-medium text-gray-200">Frais de livraison</p>
-                                <p class="font-semibold text-gray-200">$0.00</p>
+                                <p class="text-sm font-medium">Frais de livraison</p>
+                                <p class="font-semibold">$0.00</p>
                             </div>
 
                             @if ($amountDiscount > 0)

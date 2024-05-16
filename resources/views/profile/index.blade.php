@@ -55,11 +55,8 @@
                     <label for="old_password">Ancien mot de passe</label>
                     <input type="password" name="old_password" id="old_password" class="input-box">
 
-                    <label for="new_password">Nouveau mot de passe</label>
-                    <input type="password" name="new_password" id="new_password" class="input-box">
-
-                    <label for="confirm_password">Confirmer le mot de passe</label>
-                    <input type="password" name="confirm_password" id="confirm_password" class="input-box">
+                    <label for="password">Nouveau mot de passe</label>
+                    <input type="password" name="password" id="password" class="input-box">
                 </div>
 
                 <div class="mt-4">

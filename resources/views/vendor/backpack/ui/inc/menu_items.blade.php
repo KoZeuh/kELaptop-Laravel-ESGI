@@ -10,7 +10,3 @@
 <x-backpack::menu-item title="Images de produit" icon="la la-photo-video" :link="backpack_url('product-image')" />
 <x-backpack::menu-item title="Avis" icon="la la-question" :link="backpack_url('product-review')" />
 <x-backpack::menu-item title="Code Promo" icon="la la-percentage" :link="backpack_url('promo-code')" />
-
-<x-backpack::menu-item title="Marques" icon="la la-tv" :link="backpack_url('brand')" />
-<x-backpack::menu-item title="Catégories" icon="la la-tag" :link="backpack_url('category')" />
-<x-backpack::menu-item title="Utilisateurs" icon="la la-user-tag" :link="backpack_url('user')" />

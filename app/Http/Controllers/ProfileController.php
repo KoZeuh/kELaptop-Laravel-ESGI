@@ -36,22 +36,21 @@ class ProfileController extends Controller
         $user->zip = $request->zip;
         $user->country = $request->country;
 
-        if ($request->old_password && $request->new_password && $request->confirm_password) {
+        if ($request->old_password && $request->password && $request['password-confirm']) {
             $request->validate([
                 'old_password' => 'required',
-                'new_password' => 'required|min:8|confirmed'
+                'password' => 'required|min:8|confirmed'
             ], [
                 'old_password.required' => 'L\'ancien mot de passe est requis',
-                'new_password.required' => 'Le nouveau mot de passe est requis',
-                'new_password.min' => 'Le nouveau mot de passe doit contenir au moins 8 caractères',
-                'new_password.confirmed' => 'La confirmation du mot de passe ne correspond pas',
+                'password.required' => 'Le nouveau mot de passe est requis',
+                'password.min' => 'Le nouveau mot de passe doit contenir au moins 8 caractères'
             ]);
 
             if (!Hash::check($request->old_password, $user->password)) {
                 return redirect('/profile')->with('error', 'L\'ancien mot de passe est incorrect');
             }
 
-            $user->password = Hash::make($request->new_password);
+            $user->password = Hash::make($request->password);
         }
 
         try {
